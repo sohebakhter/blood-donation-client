@@ -40,6 +40,7 @@ const DonorSearch = () => {
           bloodGroup: data.bloodGroup,
           district: districtName?.name,
           upazila: data.upazila,
+          role: "donor",
         },
       });
       setDonors(res.data);
@@ -118,9 +119,9 @@ const DonorSearch = () => {
               <div key={donor._id} className="shadow p-4  rounded">
                 <h3 className="font-bold text-lg">{donor.name}</h3>
                 <p>Blood Group: {donor.bloodGroup}</p>
-                <p>District: {donor.recipientDistrict}</p>
-                <p>Upazila: {donor.recipientUpazila}</p>
-                <p>Email: {donor.requesterEmail}</p>
+                <p>District: {donor.district}</p>
+                <p>Upazila: {donor.upazila}</p>
+                <p>Email: {donor.email}</p>
                 <button className="mt-2 bg-green-600 text-white px-3 py-1 rounded">
                   Contact Now
                 </button>
