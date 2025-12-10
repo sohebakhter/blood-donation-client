@@ -14,6 +14,7 @@ import DonationRequestDetails from "../Pages/Dashboard/DonationRequestDetails";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import AllDonationRequest from "../Pages/Dashboard/Admin/AllDonationRequest";
 import About from "../Components/About";
+import DonorSearch from "../Pages/DonorSearch";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ export const router = createBrowserRouter([
       {
         path: "about",
         Component: About,
+      },
+      {
+        path: "search",
+        Component: DonorSearch,
+        loader: () => fetch("/districts.json"),
       },
     ],
   },
