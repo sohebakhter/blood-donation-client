@@ -131,7 +131,7 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {requests.map((r, i) => (
+                    {requests?.map((r, i) => (
                       <tr key={i}>
                         <th>{i + 1}</th>
                         <td>{r.requesterName}</td>
