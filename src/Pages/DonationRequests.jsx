@@ -31,6 +31,7 @@ const DonationRequests = () => {
               <th>bloodGroup</th>
               <th>donationDate</th>
               <th>donationTime</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -43,6 +44,7 @@ const DonationRequests = () => {
                 <td>{pending.bloodGroup}</td>
                 <td>{pending.donationDate}</td>
                 <td>{pending.donationTime}</td>
+                <td>{pending.donationStatus}</td>
                 <td className="btn btn-neutral btn-xs">
                   <Link
                     to={`/dashboard/donation-request-details/${pending._id}`}

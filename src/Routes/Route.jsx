@@ -16,6 +16,7 @@ import AllDonationRequest from "../Pages/Dashboard/Admin/AllDonationRequest";
 import About from "../Components/About";
 import DonorSearch from "../Pages/DonorSearch";
 import DonationRequests from "../Pages/DonationRequests";
+import PrivateRoute from "../Context/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -83,7 +84,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "donation-request-details/:id",
-        Component: DonationRequestDetails,
+        element: (
+          <PrivateRoute>
+            <DonationRequestDetails></DonationRequestDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-users",
