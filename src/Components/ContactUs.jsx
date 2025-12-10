@@ -36,11 +36,11 @@ const ContactUs = () => {
           <h3 className="text-2xl font-semibold mb-4">Get in Touch</h3>
 
           <p className="text-lg mb-2">
-            📞 <strong>Hotline:</strong> +880 1234 567 890
+            📞 <strong>Hotline:</strong> +880 1797 101 644
           </p>
 
           <p className="text-lg mb-2">
-            ✉ <strong>Email:</strong> support@bloodhero.com
+            ✉ <strong>Email:</strong> sohebakhter.badhan@gmail.com
           </p>
 
           <p className="mt-4 text-gray-600">
