@@ -10,9 +10,15 @@ const Navbar = () => {
       <li>
         <Link to="/donation-requests">DonationRequests</Link>
       </li>
-      <li>
-        <Link to="/funding">Funding</Link>
-      </li>
+      {user ? (
+        <li>
+          <Link to="/funding">Funding</Link>
+        </li>
+      ) : (
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+      )}
     </>
   );
 
@@ -66,7 +72,9 @@ const Navbar = () => {
           ) : (
             <ul>
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login" className="btn btn-primary">
+                  Login
+                </Link>
               </li>
             </ul>
           )}

@@ -78,7 +78,7 @@ const AllDonationRequest = () => {
                 <th>RecipientName</th>
                 <th>RecipientDistrict</th>
                 <th>Needed Group</th>
-                <th>Status</th>
+                <th>Donation Status</th>
               </tr>
             </thead>
             <tbody>

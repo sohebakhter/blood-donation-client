@@ -58,7 +58,9 @@ const MyDonationRequests = () => {
     <div>
       <div className=" w-full px-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold mb-4">My Donation Requests</h2>
+          <h2 className="text-2xl font-semibold mb-4">
+            My Donation Requests {filteredRequests.length}
+          </h2>
           {/* filter by status */}
           <select
             className="select"

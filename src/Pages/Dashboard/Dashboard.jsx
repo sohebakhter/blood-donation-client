@@ -12,6 +12,15 @@ const Dashboard = () => {
   console.log("this is the role", role);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  //user indevitual data for WELCOMING
+  const { data: userData = {} } = useQuery({
+    queryKey: ["users-profile", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users-profile?email=${user?.email}`);
+      return res.data;
+    },
+  });
+
   // const [page, setPage] = useState(1);
   // const limit = 10;
 
@@ -93,12 +102,16 @@ const Dashboard = () => {
     <div>
       <h1 className="text-4xl font-normal text-center py-5">
         Hello Welcome
-        <span className="text-red-500 font-bold"> {user?.displayName}</span>
+        <span className="text-red-500 font-bold"> {userData?.displayName}</span>
       </h1>
       {/* Dashboard এ donor এর অংশ এখানে  */}
       {role === "donor" && (
         <>
           {requests.length < 0 ? (
+            <h1 className="text-5xl text-gray-400 text-center mt-24">
+              Nothing Found
+            </h1>
+          ) : (
             <>
               <div className="overflow-x-auto">
                 <table className="table table-zebra">
@@ -180,43 +193,40 @@ const Dashboard = () => {
                 </Link>
               </div>
             </>
-          ) : (
-            <h1 className="text-5xl text-gray-400 text-center mt-24">
-              Nothing Found
-            </h1>
           )}
         </>
       )}
 
       {/* Dashboard এ admin এর অংশ এখানে  */}
-      {role === "admin" && (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Total User(Donors)</th>
-                <th>Total Funding</th>
-                <th>Total Blood Donation Request</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              <tr>
-                <td className="font-bold text-2xl text-blue-600">
-                  {donors.length}
-                </td>
-                <td className="font-bold text-2xl text-blue-600">
-                  $500 (demo)
-                </td>
-                <td className="font-bold text-2xl text-blue-600">
-                  {totalReq.length}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+      {role === "admin" ||
+        (role === "volunteer" && (
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Total User(Donors)</th>
+                  <th>Total Funding</th>
+                  <th>Total Blood Donation Request</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* row 1 */}
+                <tr>
+                  <td className="font-bold text-2xl text-blue-600">
+                    {donors.length}
+                  </td>
+                  <td className="font-bold text-2xl text-blue-600">
+                    $500 (demo)
+                  </td>
+                  <td className="font-bold text-2xl text-blue-600">
+                    {totalReq.length}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        ))}
     </div>
   );
 };

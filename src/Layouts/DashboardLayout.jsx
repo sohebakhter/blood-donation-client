@@ -1,11 +1,9 @@
 import React from "react";
-import { FaHistory } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { MdBloodtype, MdDashboard, MdDirectionsBike } from "react-icons/md";
-import { TbTruckDelivery } from "react-icons/tb";
 import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../Hooks/useRole";
-import { GiCardPickup, GiHumanTarget } from "react-icons/gi";
+import { GiHumanTarget } from "react-icons/gi";
 // import useAuth from "../Hooks/useAuth";
 import { BiDonateBlood } from "react-icons/bi";
 import { IoMdCreate } from "react-icons/io";
@@ -128,32 +126,39 @@ const DashboardLayout = () => {
               </NavLink>
             </li>
 
+            {/* admin role based */}
             {role === "admin" && (
-              <>
-                <li>
-                  <Link
-                    to="/dashboard/all-users"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="All Users"
-                  >
-                    <HiUserGroup />
-                    <span className="is-drawer-close:hidden">All Users</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/dashboard/all-blood-donation-request"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="All Donation Request"
-                  >
-                    <MdBloodtype />
-                    <span className="is-drawer-close:hidden">
-                      All Donation Request
-                    </span>
-                  </Link>
-                </li>
-              </>
+              <li>
+                <Link
+                  to="/dashboard/all-users"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="All Users"
+                >
+                  <HiUserGroup />
+                  <span className="is-drawer-close:hidden">All Users</span>
+                </Link>
+              </li>
             )}
+
+            {/* admin && volunteer */}
+
+            {role === "admin" ||
+              (role === "volunteer" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/all-blood-donation-request"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="All Donation Request"
+                    >
+                      <MdBloodtype />
+                      <span className="is-drawer-close:hidden">
+                        All Donation Request
+                      </span>
+                    </Link>
+                  </li>
+                </>
+              ))}
 
             {/* List item */}
           </ul>
