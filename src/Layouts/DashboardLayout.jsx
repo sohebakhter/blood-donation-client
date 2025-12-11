@@ -142,23 +142,22 @@ const DashboardLayout = () => {
 
             {/* admin && volunteer */}
 
-            {role === "admin" ||
-              (role === "volunteer" && (
-                <>
-                  <li>
-                    <Link
-                      to="/dashboard/all-blood-donation-request"
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="All Donation Request"
-                    >
-                      <MdBloodtype />
-                      <span className="is-drawer-close:hidden">
-                        All Donation Request
-                      </span>
-                    </Link>
-                  </li>
-                </>
-              ))}
+            {(role === "admin" || role === "volunteer") && (
+              <>
+                <li>
+                  <Link
+                    to="/dashboard/all-blood-donation-request"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Donation Request"
+                  >
+                    <MdBloodtype />
+                    <span className="is-drawer-close:hidden">
+                      All Donation Request
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
 
             {/* List item */}
           </ul>
