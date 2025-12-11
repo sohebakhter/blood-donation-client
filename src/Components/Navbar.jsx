@@ -8,6 +8,9 @@ const Navbar = () => {
   const links = (
     <>
       <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
         <Link to="/donation-requests">DonationRequests</Link>
       </li>
       {user ? (
@@ -40,7 +43,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex gap-2">
-          <ul className="flex items-center gap-2">{links}</ul>
+          <ul className="flex items-center gap-2 font-semibold">{links}</ul>
           {user ? (
             <>
               <div className="dropdown dropdown-end">
