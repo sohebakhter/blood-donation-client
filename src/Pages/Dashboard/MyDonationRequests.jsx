@@ -8,18 +8,28 @@ const MyDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const [status, setStatus] = useState("all");
-  // const [page, setPage] = useState(1);
-  // const limit = 10;`
+
+  const [totalRequest, setTotalRequest] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 10;
 
   const { data: requests = [], refetch } = useQuery({
-    queryKey: ["myDonationRequests", user?.email],
+    queryKey: ["myDonationRequests", user?.email, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/my-donation-requests?email=${user?.email}`
+        `/my-donation-requests?email=${user?.email}&limit=${limit}&skip=${
+          currentPage * limit
+        }`
       );
-      return res.data;
+
+      setTotalRequest(res.data.total);
+      const page = Math.ceil(res.data.total / limit);
+      setTotalPage(page);
+      return res.data.data;
     },
   });
+  console.log(requests, "aaaaaaaaaaaa", totalRequest, totalPage);
 
   //এখানে ফিলটার করা হচ্ছে (with Status)
   const filteredRequests =
@@ -50,8 +60,6 @@ const MyDonationRequests = () => {
     });
   };
 
-  // const { requests = [], totalPages = 1 } = data;
-
   // if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -80,8 +88,8 @@ const MyDonationRequests = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Requester(Me)</th>
-                <th>Requester(Me)</th>
+                <th>Requester</th>
+                <th>Requester Email</th>
                 <th>RecipientName</th>
                 <th>RecipientDistrict</th>
                 <th>Needed Group</th>
@@ -119,31 +127,32 @@ const MyDonationRequests = () => {
             </tbody>
           </table>
         </div>
-
-        {/* Pagination */}
-        {/* <div className="flex justify-center mt-4 gap-2">
+      </div>
+      {/* Pagination */}
+      <div className="flex justify-center flex-wrap mt-4 gap-2">
+        <button
+          disabled={currentPage === 0}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="btn"
+        >
+          Previous
+        </button>
+        {[...Array(totalPage).keys()].map((i) => (
           <button
-            disabled={page === 1}
-            onClick={() => setPage((prev) => prev - 1)}
-            className="btn"
+            onClick={() => setCurrentPage(i)}
+            className={`btn py-2 px-4 ${i === currentPage && "btn-primary"}`}
           >
-            Previous
+            {i + 1}
           </button>
+        ))}
 
-          <span className="py-2 px-4">
-            Page {page} of {totalPages}
-          </span>
-
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage((prev) => prev + 1)}
-            className="btn"
-          >
-            Next
-          </button>
-        </div> */}
-
-        {/* --------------------------------------------------------------------- */}
+        <button
+          disabled={currentPage === totalPage - 1}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="btn"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import useRole from "../../Hooks/useRole";
 
 const Dashboard = () => {
   const { role } = useRole();
-  console.log("this is the role", role);
+  // console.log("this is the role", role);
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   //user indevitual data for WELCOMING
@@ -31,7 +31,7 @@ const Dashboard = () => {
       return res.data;
     },
   });
-  console.log("donation requests data test", requests);
+  // console.log("donation requests data test", requests);
 
   const handleDone = (id) => {
     // Update the donation request status to "done"
@@ -97,6 +97,17 @@ const Dashboard = () => {
       return res.data;
     },
   });
+
+  const { data: payments = [] } = useQuery({
+    queryKey: ["payments"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/payments");
+      return res.data;
+    },
+  });
+
+  const totalAmount = payments.reduce((sum, i) => sum + i.amount, 0);
+  console.log(totalAmount);
 
   return (
     <div>
@@ -217,7 +228,7 @@ const Dashboard = () => {
                     {donors.length}
                   </td>
                   <td className="font-bold text-2xl text-blue-600">
-                    $500 (demo)
+                    ${totalAmount}
                   </td>
                   <td className="font-bold text-2xl text-blue-600">
                     {totalReq.length}
