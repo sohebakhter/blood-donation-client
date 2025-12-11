@@ -1,11 +1,19 @@
 import React, { useRef } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const Funding = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const modalRef = useRef();
+  const { data: payments = [] } = useQuery({
+    queryKey: ["payments"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/payments");
+      return res.data;
+    },
+  });
 
   const handlePayment = (e) => {
     e.preventDefault();
@@ -29,7 +37,9 @@ const Funding = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl text-center text-cyan-600 py-5">Funding</h1>
+      <h1 className="text-4xl text-center text-cyan-600 py-5">
+        Funding {payments.length}
+      </h1>
       <div className="flex justify-end items-center">
         <button onClick={handleModal} className="btn bg-cyan-600 text-white ">
           Give Fund
@@ -47,13 +57,14 @@ const Funding = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1</th>
-              <td>Kuddus Boyati</td>
-              <td>$500</td>
-              <td>2025-12-11</td>
-            </tr>
+            {payments.map((p, i) => (
+              <tr key={i}>
+                <th>{i + 1}</th>
+                <td>{p.senderName}</td>
+                <td>{p.amount}</td>
+                <td>{p.createdAt}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
