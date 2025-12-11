@@ -209,35 +209,34 @@ const Dashboard = () => {
       )}
 
       {/* Dashboard এ admin এর অংশ এখানে  */}
-      {role === "admin" ||
-        (role === "volunteer" && (
-          <div className="overflow-x-auto">
-            <table className="table table-zebra">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>Total User(Donors)</th>
-                  <th>Total Funding</th>
-                  <th>Total Blood Donation Request</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                <tr>
-                  <td className="font-bold text-2xl text-blue-600">
-                    {donors.length}
-                  </td>
-                  <td className="font-bold text-2xl text-blue-600">
-                    ${totalAmount}
-                  </td>
-                  <td className="font-bold text-2xl text-blue-600">
-                    {totalReq.length}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        ))}
+      {(role === "admin" || role === "volunteer") && (
+        <div className="overflow-x-auto">
+          <table className="table table-zebra">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Total User(Donors)</th>
+                <th>Total Funding</th>
+                <th>Total Blood Donation Request</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+              <tr>
+                <td className="font-bold text-2xl text-blue-600">
+                  {donors.length}
+                </td>
+                <td className="font-bold text-2xl text-blue-600">
+                  ${totalAmount}
+                </td>
+                <td className="font-bold text-2xl text-blue-600">
+                  {totalReq.length}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

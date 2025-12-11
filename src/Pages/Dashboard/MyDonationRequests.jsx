@@ -129,7 +129,7 @@ const MyDonationRequests = () => {
         </div>
       </div>
       {/* Pagination */}
-      <div className="flex justify-center flex-wrap mt-4 gap-2">
+      <div className="fixed bottom-0 left-0 w-full py-3 flex justify-center gap-2 shadow-lg z-50">
         <button
           disabled={currentPage === 0}
           onClick={() => setCurrentPage(currentPage - 1)}
