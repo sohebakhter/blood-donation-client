@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router";
+import bannerImg from "../assets/bloodBanner.jpg";
+import { LuLogIn } from "react-icons/lu";
 
 const Banner = () => {
   const navigate = useNavigate();
@@ -14,38 +16,48 @@ const Banner = () => {
   return (
     <div className="hero-overlay bg-opacity-60">
       <div
-        className="hero h-100 max-w-7xl mx-auto"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1627956186075-950606f6f47d?auto=format&fit=crop&w=1400&q=80')",
-        }}
+        className="h-[600px] bg-cover bg-center flex items-center justify-center"
+        style={{ backgroundImage: `url('${bannerImg}')` }}
       >
         <div className=""></div>
 
         <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-xl">
-            <h1 className="mb-5 text-5xl font-bold">
-              Donate Blood, Save a Life
-            </h1>
-            <p className="mb-8 text-lg">
-              Your contribution could be the reason someone gets a second
-              chance.
-            </p>
-
-            <div className="flex justify-center gap-5">
-              <button
-                className="btn btn-error text-white"
+          <div className="relative">
+            <div className="absolute -bottom-[400px] left-1/2 -translate-x-1/2 flex">
+              <div
+                className="bg-red-600 text-white flex items-center justify-between px-10 space-x-5 hover:cursor-pointer transition-all duration-300 transform hover:scale-105"
                 onClick={handleJoinDonor}
               >
-                Join as a Donor
-              </button>
-
-              <button
-                className="btn btn-outline btn-error"
+                <div className="space-y-5 py-5">
+                  <h1 className="text-white font-semibold text-4xl text-start">
+                    Join as a Donor
+                  </h1>
+                  <p className="text-start">
+                    Register now to become a blood donor and help save countless
+                    lives. Your small step can make a huge difference.
+                  </p>
+                </div>
+                <div className="text-5xl">
+                  <LuLogIn />
+                </div>
+              </div>
+              <div
+                className="bg-gray-600 text-white flex items-center justify-between px-10 space-x-5 w-[800px] h-60 hover:cursor-pointer transition-all duration-300 transform hover:scale-105"
                 onClick={handleSearchDonors}
               >
-                Search Donors
-              </button>
+                <div className="space-y-5 py-5">
+                  <h1 className="text-white font-semibold text-4xl text-start">
+                    Search Donors
+                  </h1>
+                  <p className="text-start">
+                    Search for blood donors near you quickly and easily. Find
+                    the right match to save lives in time of need.
+                  </p>
+                </div>
+                <div className="text-5xl">
+                  <LuLogIn />
+                </div>
+              </div>
             </div>
           </div>
         </div>
