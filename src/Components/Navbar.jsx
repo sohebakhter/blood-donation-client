@@ -37,7 +37,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="shadow-sm">
+    <div className="shadow-sm ">
       <div className="max-w-7xl mx-auto navbar bg-base-100">
         <div className="flex-1 flex items-center">
           <img src={logo} alt="" className="w-16 rounded-full" />

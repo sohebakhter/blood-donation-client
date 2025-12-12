@@ -5,8 +5,8 @@ import Footer from "../Components/Footer";
 
 const RootLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <div>
+    <div className="flex flex-col min-h-screen ">
+      <div className=" ">
         <Navbar></Navbar>
       </div>
       <div className="flex-1">

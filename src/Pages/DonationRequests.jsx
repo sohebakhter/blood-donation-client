@@ -16,14 +16,14 @@ const DonationRequests = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl text-center">
-        Donation Requests {pendingData.length}
+      <h1 className="text-4xl text-center text-red-400 font-semibold p-5">
+        Pending Donation Requests
       </h1>
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           {/* head */}
-          <thead>
+          <thead className="bg-red-300">
             <tr>
               <th>#</th>
               <th>Name</th>
@@ -35,17 +35,29 @@ const DonationRequests = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-red-100">
             {pendingData.map((pending, i) => (
               <tr key={i}>
-                <th>{i + 1}</th>
-                <td>{pending.recipientName}</td>
-                <td>{pending.fullAddress}</td>
-                <td>{pending.bloodGroup}</td>
-                <td>{pending.donationDate}</td>
-                <td>{pending.donationTime}</td>
-                <td>{pending.donationStatus}</td>
-                <td className="btn btn-neutral btn-xs">
+                <th className="text-xl font-semibold text-gray-600">{i + 1}</th>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.recipientName}
+                </td>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.fullAddress}
+                </td>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.bloodGroup}
+                </td>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.donationDate}
+                </td>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.donationTime}
+                </td>
+                <td className="text-xl font-semibold text-gray-600">
+                  {pending.donationStatus}
+                </td>
+                <td className="btn bg-red-600 text-white btn-xs">
                   <Link
                     to={`/dashboard/donation-request-details/${pending._id}`}
                   >
