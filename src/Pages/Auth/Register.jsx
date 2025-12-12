@@ -19,135 +19,182 @@ const Register = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
   const realData = useLoaderData();
+
   useEffect(() => {
     fetch("./upazilas.json")
       .then((res) => res.json())
-      .then((data) => {
-        setUpazilas(data); //upazilas একটি array
-      })
+      .then((data) => setUpazilas(data))
       .catch((err) => console.log(err));
   }, []);
 
   const selectedDistrict = useWatch({ control, name: "district" });
-  // console.log("selectedDistrict", selectedDistrict);
 
   const upazilaByDistrictId = (districtId) => {
     const districtUpazilas = upazilas.filter(
       (u) => u.district_id === districtId
     );
-    const upazilasName = districtUpazilas.map((u) => u.name);
-    return upazilasName;
+    return districtUpazilas.map((u) => u.name);
   };
 
   const handleRegister = (data) => {
-    console.log("real data", data);
-    const profielImg = data.photo[0];
-    // get district name from id
-    const districtName = realData.find((d) => d.id === data.district);
-
-    // validate password and confirm password
     if (data.password !== data.confirmPassword) {
       toast.error("Password and Confirm Password do not match");
       return;
     }
 
+    const profielImg = data.photo[0];
+    const districtName = realData.find((d) => d.id === data.district);
+
     createUser(data.email, data.password)
-      .then((result) => {
-        console.log("present check", result.user);
-        //1.store the image in form data
+      .then(() => {
         const formData = new FormData();
         formData.append("image", profielImg);
-        // 2. send the photo to store and get the url
+
         const imageapiURL = `https://api.imgbb.com/1/upload?key=${
           import.meta.env.VITE_image_host_key
         }`;
+
         axios.post(imageapiURL, formData).then((res) => {
           const photoURL = res.data.data.url;
-          // creating user to database
+
           const userInfo = {
             displayName: data.name,
-            photoURL: photoURL,
+            photoURL,
             email: data.email,
             bloodGroup: data.bloodGroup,
             district: districtName.name,
             upazila: data.upazila,
             status: "active",
           };
-          axiosSecure.post("/users", userInfo).then((res) => {
-            if (res.data.insertedId) {
-              console.log("user added to database");
-            }
-          });
-          // update user profile to firebase
-          const userProfile = {
-            displayName: data.name,
-            photoURL: photoURL,
-          };
 
+          axiosSecure.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) console.log("user added to database");
+          });
+
+          const userProfile = { displayName: data.name, photoURL };
           updateUser(userProfile)
             .then(() => {
-              console.log("user info updated");
               toast.success("Registration Successful, Updated your profile");
               navigate(location?.state || "/");
             })
             .catch((err) => console.log(err));
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   };
+
   return (
-    <div className="flex justify-center items-center">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <div className="card-body">
-          <form onSubmit={handleSubmit(handleRegister)}>
-            <fieldset className="fieldset">
-              {/* email */}
-              <label className="label">Email</label>
-              <input
-                type="email"
-                {...register("email", { required: true })}
-                className="input"
-                placeholder="Email"
-              />
-              {errors.email?.type === "required" && (
-                <p className="text-red-500">Email Is Required</p>
-              )}
+    <div>
+      <div className="bg-gray-700 h-50 flex items-center justify-center">
+        <h1 className="text-4xl font-semibold text-white text-center items-center">
+          REGISTRATION
+        </h1>
+      </div>
+      <div className="max-w-7xl mx-auto p-4">
+        <form onSubmit={handleSubmit(handleRegister)} className="space-y-6">
+          <div className="flex flex-col lg:flex-row gap-6 rounded-2xl p-10 bg-gray-200">
+            {/* Left Column */}
+            <div className="flex-1 space-y-4">
+              {/* Email */}
+              <fieldset className="w-full">
+                <label className="label">Email</label>
+                <input
+                  type="email"
+                  {...register("email", { required: true })}
+                  className="input w-full"
+                  placeholder="Email"
+                />
+                {errors.email && (
+                  <p className="text-red-500">Email Is Required</p>
+                )}
+              </fieldset>
 
-              {/* name */}
-              <label className="label">Name</label>
-              <input
-                type="text"
-                {...register("name", { required: true })}
-                className="input"
-                placeholder="Your Name"
-              />
-              {errors.name?.type === "required" && (
-                <p className="text-red-500">Name Is Required</p>
-              )}
-              {/* photo image section */}
-              <label className="label">Photo</label>
-              <input
-                type="file"
-                {...register("photo", { required: true })}
-                className="file-input"
-                placeholder="Your Photo"
-              />
-              {errors.photo?.type === "required" && (
-                <p className="text-red-500">photo Is Required</p>
-              )}
+              {/* Name */}
+              <fieldset className="w-full">
+                <label className="label">Name</label>
+                <input
+                  type="text"
+                  {...register("name", { required: true })}
+                  className="input w-full"
+                  placeholder="Your Name"
+                />
+                {errors.name && (
+                  <p className="text-red-500">Name Is Required</p>
+                )}
+              </fieldset>
 
-              {/* blood Group */}
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Blood Group</legend>
+              {/* Password */}
+              <fieldset className="w-full">
+                <label className="label">Password</label>
+                <input
+                  type="password"
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
+                  })}
+                  className="input w-full"
+                  placeholder="Password"
+                />
+                {errors.password?.type === "required" && (
+                  <p className="text-red-500">Password Is Required</p>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <p className="text-red-500">
+                    Password must be at least 6 characters
+                  </p>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <p className="text-red-500">
+                    Password must be at least 6 characters, with uppercase,
+                    lowercase, and special character.
+                  </p>
+                )}
+              </fieldset>
+
+              {/* Confirm Password */}
+              <fieldset className="w-full">
+                <label className="label">Confirm Password</label>
+                <input
+                  type="password"
+                  {...register("confirmPassword", {
+                    required: true,
+                    minLength: 6,
+                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
+                  })}
+                  className="input w-full"
+                  placeholder="Confirm Password"
+                />
+              </fieldset>
+            </div>
+
+            {/* Right Column */}
+            <div className="flex-1 space-y-4">
+              {/* Photo */}
+              <fieldset className="w-full">
+                <label className="label">Photo</label>
+                <input
+                  type="file"
+                  {...register("photo", { required: true })}
+                  className="file-input w-full"
+                />
+                {errors.photo && (
+                  <p className="text-red-500">Photo Is Required</p>
+                )}
+              </fieldset>
+
+              {/* Blood Group */}
+              <fieldset className="w-full">
+                <label className="label">Blood Group</label>
                 <select
-                  defaultValue="Pick a browser"
+                  defaultValue=""
                   {...register("bloodGroup", { required: true })}
-                  className="select"
+                  className="select w-full"
                 >
-                  <option disabled={true}>Pick a Blood Group</option>
-                  {["A+", "A-", " B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                  <option value="" disabled>
+                    Pick a Blood Group
+                  </option>
+                  {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
                     (b, i) => (
                       <option key={i} value={b}>
                         {b}
@@ -157,32 +204,36 @@ const Register = () => {
                 </select>
               </fieldset>
 
-              {/* Select Districts */}
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend"> Select Districts</legend>
+              {/* District */}
+              <fieldset className="w-full">
+                <label className="label">District</label>
                 <select
-                  defaultValue="Pick a District"
+                  defaultValue=""
                   {...register("district", { required: true })}
-                  className="select"
+                  className="select w-full"
                 >
-                  <option disabled={true}>Pick a District</option>
-                  {realData.map((d, i) => (
-                    <option key={i} value={d.id}>
+                  <option value="" disabled>
+                    Pick a District
+                  </option>
+                  {realData.map((d) => (
+                    <option key={d.id} value={d.id}>
                       {d.name}
                     </option>
                   ))}
                 </select>
               </fieldset>
 
-              {/* Select Upazila */}
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend"> Select Upazila</legend>
+              {/* Upazila */}
+              <fieldset className="w-full">
+                <label className="label">Upazila</label>
                 <select
-                  defaultValue="Pick a Upazila"
+                  defaultValue=""
                   {...register("upazila", { required: true })}
-                  className="select"
+                  className="select w-full"
                 >
-                  <option disabled={true}>Pick a Upazila</option>
+                  <option value="" disabled>
+                    Pick an Upazila
+                  </option>
                   {upazilaByDistrictId(selectedDistrict).map((u, i) => (
                     <option key={i} value={u}>
                       {u}
@@ -190,59 +241,23 @@ const Register = () => {
                   ))}
                 </select>
               </fieldset>
+            </div>
+          </div>
 
-              {/* password */}
-              <label className="label">Password</label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: true,
-                  minLength: 6,
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
-                })}
-                className="input"
-                placeholder="Password"
-              />
-              {errors.password?.type === "required" && (
-                <p className="text-red-500">Password Is Required</p>
-              )}
-              {errors.password?.type === "minLength" && (
-                <p className="text-red-500">
-                  Password must be atlest 6 characters
-                </p>
-              )}
-              {errors.password?.type === "pattern" && (
-                <p className="text-red-500">
-                  Password must be at least 6 characters long, with at least one
-                  uppercase letter, one lowercase letter, and one special
-                  character.
-                </p>
-              )}
-              {/* confirm password */}
-              <label className="label">Password</label>
-              <input
-                type="password"
-                {...register("confirmPassword", {
-                  required: true,
-                  minLength: 6,
-                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
-                })}
-                className="input"
-                placeholder="Confirm Password"
-              />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
-              <button className="btn btn-neutral mt-4">Register</button>
-            </fieldset>
+          <button
+            type="submit"
+            className="btn bg-red-600 text-white w-full mt-4"
+          >
+            Register
+          </button>
 
-            <Link to="/login" state={location?.state}>
-              <p>
-                Already Registered ?<span className="text-blue-400">Login</span>
-              </p>
-            </Link>
-          </form>
-        </div>
+          <Link to="/login" state={location?.state}>
+            <p className="text-center mt-2">
+              Already Registered ?
+              <span className="text-red-400 font-semibold"> Login</span>
+            </p>
+          </Link>
+        </form>
       </div>
     </div>
   );
