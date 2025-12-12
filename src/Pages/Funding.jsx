@@ -37,18 +37,18 @@ const Funding = () => {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl text-center text-cyan-600 py-5">
-        Funding {payments.length}
+      <h1 className="text-5xl font-medium text-center text-red-400 py-2">
+        Funding History
       </h1>
       <div className="flex justify-end items-center">
-        <button onClick={handleModal} className="btn bg-cyan-600 text-white ">
+        <button onClick={handleModal} className="btn bg-red-700 text-white ">
           Give Fund
         </button>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mb-5">
         <table className="table table-zebra">
           {/* head */}
-          <thead>
+          <thead className="bg-red-300">
             <tr>
               <th>#</th>
               <th>Name</th>
@@ -56,13 +56,19 @@ const Funding = () => {
               <th>Funding Date</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="bg-red-100">
             {payments.map((p, i) => (
               <tr key={i}>
-                <th>{i + 1}</th>
-                <td>{p.senderName}</td>
-                <td>{p.amount}</td>
-                <td>{p.createdAt}</td>
+                <th className="text-lg font-semibold text-gray-500">{i + 1}</th>
+                <td className="text-lg font-semibold text-gray-500">
+                  {p.senderName}
+                </td>
+                <td className="text-lg font-semibold text-gray-500">
+                  {p.amount}
+                </td>
+                <td className="text-lg font-semibold text-gray-500">
+                  {p.createdAt}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -72,7 +78,7 @@ const Funding = () => {
 
       <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
+          <h3 className="font-bold text-lg">Funding Amount!</h3>
           <form onSubmit={handlePayment} className="flex gap-2">
             <input
               type="number"
@@ -81,7 +87,7 @@ const Funding = () => {
               name="amount"
               required
             />
-            <button type="sumbit" className="btn btn-neutral">
+            <button type="sumbit" className="btn bg-red-400 text-white">
               Confirm
             </button>
           </form>

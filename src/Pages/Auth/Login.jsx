@@ -67,7 +67,8 @@ const Login = () => {
           </form>
           <Link to="/register" state={location?.state}>
             <p className="text-center">
-              New here ? to <span className="text-red-400">Register</span>
+              New here ? to{" "}
+              <span className="text-red-400 font-semibold">Register</span>
             </p>
           </Link>
         </div>
