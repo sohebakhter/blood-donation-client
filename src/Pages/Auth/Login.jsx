@@ -27,13 +27,16 @@ const Login = () => {
       });
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center p-20">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <form onSubmit={handleSubmit(handleLogin)}>
+            <h1 className="bg-red-600 text-white text-center text-3xl py-5 font-semibold rounded-md">
+              LOGIN
+            </h1>
             <fieldset className="fieldset">
               {/* email */}
-              <label className="label">Email</label>
+              <label className="label text-xl">Email</label>
               <input
                 type="email"
                 {...register("email", { required: true })}
@@ -44,7 +47,7 @@ const Login = () => {
                 <p className="text-red-500">Email is required</p>
               )}
               {/* password */}
-              <label className="label">Password</label>
+              <label className="label text-xl">Password</label>
               <input
                 type="password"
                 {...register("password", { required: true })}
@@ -54,15 +57,17 @@ const Login = () => {
               {errors.password?.type === "required" && (
                 <p className="text-red-500">Password is required</p>
               )}
-              <div>
-                <a className="link link-hover">Forgot password?</a>
+              <div className="flex items-center justify-between">
+                <button className="btn bg-red-600 mt-4 text-white">
+                  LOG IN
+                </button>
+                <a className="link link-hover text-lg">Forgot password?</a>
               </div>
-              <button className="btn btn-neutral mt-4">Login</button>
             </fieldset>
           </form>
           <Link to="/register" state={location?.state}>
-            <p>
-              New here to <span className="text-blue-400">Register</span>
+            <p className="text-center">
+              New here ? to <span className="text-red-400">Register</span>
             </p>
           </Link>
         </div>
