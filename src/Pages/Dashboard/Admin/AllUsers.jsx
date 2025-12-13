@@ -82,14 +82,14 @@ const AllUsers = () => {
     <div>
       {role === "admin" && (
         <>
-          <h1 className="text-5xl text-center ">
-            All Users <span className="text-red-500">{allUser.length}</span>
+          <h1 className="text-4xl text-center text-red-400 font-semibold p-5">
+            All Users
           </h1>
 
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
-              <thead>
+              <thead className="bg-red-400 text-white">
                 <tr>
                   <th>#</th>
                   <th>Name</th>
@@ -99,7 +99,7 @@ const AllUsers = () => {
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-red-100 text-lg">
                 {allUser.map((u, i) => (
                   <tr>
                     <th>{i + 1}</th>

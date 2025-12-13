@@ -39,7 +39,9 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Blood Donation Dashboard</div>
+          <div className="px-4 font-bold text-2xl text-center text-red-400">
+            Blood Donation Dashboard
+          </div>
         </nav>
         {/* Dashboard Home Page ডাটা এখানে */}
         <div></div>
@@ -129,14 +131,14 @@ const DashboardLayout = () => {
             {/* admin role based */}
             {role === "admin" && (
               <li>
-                <Link
+                <NavLink
                   to="/dashboard/all-users"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="All Users"
                 >
                   <HiUserGroup />
                   <span className="is-drawer-close:hidden">All Users</span>
-                </Link>
+                </NavLink>
               </li>
             )}
 
@@ -145,7 +147,7 @@ const DashboardLayout = () => {
             {(role === "admin" || role === "volunteer") && (
               <>
                 <li>
-                  <Link
+                  <NavLink
                     to="/dashboard/all-blood-donation-request"
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                     data-tip="All Donation Request"
@@ -154,7 +156,7 @@ const DashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       All Donation Request
                     </span>
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}

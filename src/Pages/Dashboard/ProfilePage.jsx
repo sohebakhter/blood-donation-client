@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -9,9 +9,7 @@ const ProfilePage = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const email = user?.email;
-  console.log("email ekhon", email);
 
-  // const queryClient = useQueryClient();
   const [editable, setEditable] = useState(false);
 
   // Fetch Single User Data
@@ -23,20 +21,30 @@ const ProfilePage = () => {
     },
     enabled: !!email,
   });
-  console.log("User Data:", userData);
 
   // React Hook Form
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+
+  useEffect(() => {
+    if (editable && userData?._id) {
+      reset({
+        displayName: userData?.displayName || "",
+        bloodGroup: userData?.bloodGroup || "",
+        district: userData?.district || "",
+        upazila: userData?.upazila || "",
+      });
+    }
+  }, [editable, userData, reset]);
 
   // Update Profile
   const onSubmit = (data) => {
-    console.log("Updated Data:", data);
     const updatedData = {
       displayName: data.displayName,
       bloodGroup: data.bloodGroup,
       district: data.district,
       upazila: data.upazila,
     };
+    console.log(updatedData);
     axiosSecure
       .patch(`/user-profile/${userData?._id}`, updatedData)
       .then((res) => {
@@ -48,16 +56,12 @@ const ProfilePage = () => {
       });
   };
 
-  // if (isLoading)
-  //   return <p className="text-center mt-10 font-bold">Loading profile...</p>;
-
   return (
     <div className="p-10 max-w-3xl mx-auto">
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">My Profile</h2>
+        <h2 className="text-4xl font-bold text-red-500">My Profile</h2>
 
-        {/* এখানে বাটন--------------------- */}
         {!editable ? (
           <button className="btn btn-warning" onClick={() => setEditable(true)}>
             Edit
@@ -70,7 +74,7 @@ const ProfilePage = () => {
       </div>
 
       {/* CARD */}
-      <div className="card bg-base-100 shadow-lg p-8">
+      <div className="card bg-base-100 shadow-lg p-8 bg-gray-500">
         <div className="flex justify-center mb-4">
           <img
             src={userData?.photoURL}
@@ -84,16 +88,16 @@ const ProfilePage = () => {
           <input
             type="text"
             {...register("displayName")}
-            defaultValue={userData?.displayName}
+            defaultValue={userData.displayName}
             disabled={!editable}
             className="input input-bordered w-full"
             placeholder="Full Name"
           />
 
-          {/* Email - Always fixed */}
+          {/* Email (fixed) */}
           <input
             type="email"
-            defaultValue={userData?.email}
+            value={userData?.email || ""}
             disabled
             className="input input-bordered w-full"
           />
@@ -101,23 +105,22 @@ const ProfilePage = () => {
           {/* Blood Group */}
           <select
             {...register("bloodGroup")}
+            defaultValue={userData.bloodGroup}
             disabled={!editable}
             className="select select-bordered w-full"
           >
-            {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
-              (grp, i) => (
-                <option key={i} value={grp}>
-                  {grp}
-                </option>
-              )
-            )}
+            {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((grp) => (
+              <option key={grp} value={grp}>
+                {grp}
+              </option>
+            ))}
           </select>
 
           {/* District */}
           <input
             type="text"
             {...register("district")}
-            defaultValue={userData?.district}
+            defaultValue={userData.district}
             disabled={!editable}
             className="input input-bordered"
             placeholder="District"
@@ -127,7 +130,7 @@ const ProfilePage = () => {
           <input
             type="text"
             {...register("upazila")}
-            defaultValue={userData?.upazila}
+            defaultValue={userData.upazila}
             disabled={!editable}
             className="input input-bordered"
             placeholder="Upazila"

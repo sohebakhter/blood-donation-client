@@ -8,11 +8,11 @@ const About = () => {
     <section className=" text-gray-800 ">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-6 mt-5">
-          About <span className="text-red-600">Red Life</span>
+          About <span className="text-red-600">Red Love</span>
         </h1>
 
         <p className="text-lg leading-8 mb-6 text-center">
-          RedLife is a community-driven platform dedicated to connecting blood
+          RedLove is a community-driven platform dedicated to connecting blood
           donors with people in urgent need. We also provide a trusted way for
           users to contribute small funds to support medical emergencies,
           transportation, and social wellness projects.
@@ -25,14 +25,17 @@ const About = () => {
             <img src={donateImg} alt="" />
           </div>
           <div>
-            <div className="space-y-10">
-              <div className="space-y-5">
-                <h1 className="text-4xl font-semibold">About RedLife</h1>
+            <div className="space-y-3">
+              <div className="space-y-1">
+                <h1 className="text-4xl font-semibold">About RedLove</h1>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam nesciunt voluptatibus perferendis mollitia quaerat!
-                  Fugit a placeat odit quibusdam, enim nisi dolores autem, quod
-                  reprehenderit nam adipisci dolorem distinctio ipsum.
+                  Red Love is a community-driven blood donation platform
+                  dedicated to saving lives by connecting blood donors with
+                  patients in need. It enables users to create and manage blood
+                  donation requests, view real-time details, and respond quickly
+                  during emergencies. With a simple and user-friendly design,
+                  Red Love aims to make blood donation faster, easier, and more
+                  accessible for everyone.
                 </p>
               </div>
               <div>
@@ -43,9 +46,10 @@ const About = () => {
                       All Data is Secured
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Veniam Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. Veniam
+                      Your personal and donation-related information is safely
+                      stored and protected. Red Love ensures data privacy and
+                      security so users can focus on what truly matters—saving
+                      lives.
                     </p>
                   </div>
                 </div>
@@ -56,9 +60,10 @@ const About = () => {
                       Always Free for All
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Veniam Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. Veniam
+                      Red Love is completely free to use for everyone. There are
+                      no hidden charges or fees—our mission is to make blood
+                      donation accessible, open, and available to all who want
+                      to help save lives.
                     </p>
                   </div>
                 </div>
@@ -69,9 +74,9 @@ const About = () => {
                       Advance Search Feature
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Veniam Lorem ipsum dolor sit amet consectetur adipisicing
-                      elit. Veniam
+                      Easily find blood donors by selecting blood group,
+                      district, and upazila. This advanced search helps you
+                      quickly connect with the right donors during emergencies.
                     </p>
                   </div>
                 </div>

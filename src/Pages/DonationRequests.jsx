@@ -57,7 +57,7 @@ const DonationRequests = () => {
                 <td className="text-xl font-semibold text-gray-600">
                   {pending.donationStatus}
                 </td>
-                <td className="btn bg-red-600 text-white btn-xs">
+                <td className="btn bg-red-500 text-white btn-xs">
                   <Link
                     to={`/dashboard/donation-request-details/${pending._id}`}
                   >

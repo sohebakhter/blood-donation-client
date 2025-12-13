@@ -156,19 +156,19 @@ const Footer = () => {
                 className="w-10 h-10 bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="font-bold text-lg">f</span>
+                <span className="font-bold text-lg">F</span>
               </a>
               <a
                 className="w-10 h-10  bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="material-icons text-lg">f</span>
+                <span className="material-icons text-lg">X</span>
               </a>
               <a
                 className="w-10 h-10 bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="material-icons text-lg">c</span>
+                <span className="material-icons text-lg">L</span>
               </a>
             </div>
           </div>

@@ -14,7 +14,11 @@ const MyDonationRequests = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const limit = 10;
 
-  const { data: requests = [], refetch } = useQuery({
+  const {
+    data: requests = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["myDonationRequests", user?.email, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -29,6 +33,7 @@ const MyDonationRequests = () => {
       return res.data.data;
     },
   });
+  if (isLoading) return <p>Loading...</p>;
   console.log(requests, "aaaaaaaaaaaa", totalRequest, totalPage);
 
   //এখানে ফিলটার করা হচ্ছে (with Status)
@@ -60,14 +65,12 @@ const MyDonationRequests = () => {
     });
   };
 
-  // if (isLoading) return <p>Loading...</p>;
-
   return (
     <div>
       <div className=" w-full px-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold mb-4">
-            My Donation Requests {filteredRequests.length}
+          <h2 className="text-4xl font-semibold mb-4 text-red-600">
+            My Donation Requests
           </h2>
           {/* filter by status */}
           <select
@@ -82,10 +85,10 @@ const MyDonationRequests = () => {
             <option value="cancelled">Cancelled</option>
           </select>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto py-5">
           <table className="table table-zebra">
             {/* head */}
-            <thead>
+            <thead className="bg-red-300">
               <tr>
                 <th>#</th>
                 <th>Requester</th>
@@ -96,31 +99,52 @@ const MyDonationRequests = () => {
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-red-200">
               {filteredRequests.map((r, i) => (
                 <tr key={i}>
-                  <th>{i + 1}</th>
-                  <td>{r.requesterName}</td>
-                  <td>{r.requesterEmail}</td>
-                  <td>{r.recipientName}</td>
-                  <td>{r.recipientDistrict}</td>
-                  <td>{r.bloodGroup}</td>
-                  <td>{r.donationStatus}</td>
+                  <th className="text-lg font-semibold text-gray-600">
+                    {i + 1}
+                  </th>
+                  <td className="text-lg font-semibold text-gray-600">
+                    {r.requesterName}
+                  </td>
+                  <td className="text-lg font-semibold text-gray-600">
+                    {r.requesterEmail}
+                  </td>
+                  <td className="text-lg font-semibold text-gray-600">
+                    {r.recipientName}
+                  </td>
+                  <td className="text-lg font-semibold text-gray-600">
+                    {r.recipientDistrict}
+                  </td>
+                  <td className="text-lg font-semibold text-gray-600">
+                    {r.bloodGroup}
+                  </td>
+                  <td
+                    className={`text-lg font-semibold text-gray-600 ${
+                      r.donationStatus === "inprogress" ||
+                      r.donationStatus === "done"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {r.donationStatus}
+                  </td>
                   {r.donationStatus === "inprogress" && (
-                    <>
-                      <td
+                    <td className="flex">
+                      <button
                         onClick={() => handleDone(r._id)}
                         className="btn btn-primary"
                       >
                         Done
-                      </td>
-                      <td
+                      </button>
+                      <button
                         onClick={() => handleCancel(r._id)}
                         className="btn btn-warning ml-2"
                       >
                         Cancel
-                      </td>
-                    </>
+                      </button>
+                    </td>
                   )}
                 </tr>
               ))}

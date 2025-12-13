@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useRole from "../../Hooks/useRole";
+import { CircleDollarSign, HeartPulse, Syringe } from "lucide-react";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -124,10 +125,10 @@ const Dashboard = () => {
             </h1>
           ) : (
             <>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto bg-gradient-to-b from-red-300 to-red-100">
                 <table className="table table-zebra">
                   {/* head */}
-                  <thead>
+                  <thead className="bg-red-400 text-white">
                     <tr>
                       <th>#</th>
                       <th>RequesterName</th>
@@ -141,21 +142,39 @@ const Dashboard = () => {
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="">
                     {requests?.map((r, i) => (
                       <tr key={i}>
-                        <th>{i + 1}</th>
-                        <td>{r.requesterName}</td>
+                        <th className="font-semibold text-lg text-gray-600">
+                          {i + 1}
+                        </th>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.requesterName}
+                        </td>
 
-                        <td>{r.recipientName}</td>
-                        <td>{r.recipientDistrict}</td>
-                        <td>{r.recipientUpazila}</td>
-                        <td>{r.donationDate}</td>
-                        <td>{r.donationTime}</td>
-                        <td>{r.bloodGroup}</td>
-                        <td>{r.donationStatus}</td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.recipientName}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.recipientDistrict}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.recipientUpazila}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.donationDate}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.donationTime}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.bloodGroup}
+                        </td>
+                        <td className="font-semibold text-lg text-gray-600">
+                          {r.donationStatus}
+                        </td>
                         {r.donationStatus === "inprogress" && (
-                          <>
+                          <td className="flex">
                             <td className="btn btn-neutral">
                               <Link
                                 to={`/dashboard/manage-donation-request/${r._id}`}
@@ -188,7 +207,7 @@ const Dashboard = () => {
                             >
                               Cancel
                             </td>
-                          </>
+                          </td>
                         )}
                       </tr>
                     ))}
@@ -210,31 +229,40 @@ const Dashboard = () => {
 
       {/* Dashboard এ admin এর অংশ এখানে  */}
       {(role === "admin" || role === "volunteer") && (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Total User(Donors)</th>
-                <th>Total Funding</th>
-                <th>Total Blood Donation Request</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* row 1 */}
-              <tr>
-                <td className="font-bold text-2xl text-blue-600">
-                  {donors.length}
-                </td>
-                <td className="font-bold text-2xl text-blue-600">
-                  ${totalAmount}
-                </td>
-                <td className="font-bold text-2xl text-blue-600">
-                  {totalReq.length}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="flex items-center justify-center gap-10">
+          <div className=" flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
+            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
+              <HeartPulse className="text-red-600" />
+            </div>
+            <h2 className="text-7xl font-semibold text-red-600">
+              {donors.length}
+            </h2>
+            <h1 className="text-xl font-semibold text-gray-600">
+              Total Donor User
+            </h1>
+          </div>
+          <div className=" flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
+            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
+              <CircleDollarSign className="text-red-600" />
+            </div>
+            <h2 className="text-7xl font-semibold text-red-600">
+              ${totalAmount}
+            </h2>
+            <h1 className="text-xl font-semibold text-gray-600">
+              Total Funding
+            </h1>
+          </div>
+          <div className="flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
+            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
+              <Syringe className="text-red-600" />
+            </div>
+            <h2 className="text-7xl font-semibold text-red-600">
+              {totalReq.length}
+            </h2>
+            <h1 className="text-xl font-semibold text-gray-600">
+              Total Blood Donation Request
+            </h1>
+          </div>
         </div>
       )}
     </div>
