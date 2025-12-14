@@ -125,7 +125,9 @@ const Dashboard = () => {
             </h1>
           ) : (
             <>
-              <div className="overflow-x-auto bg-gradient-to-b from-red-300 to-red-100">
+              <div
+                className={`overflow-x-auto bg-linear-to-b from-red-300 to-red-100`}
+              >
                 <table className="table table-zebra">
                   {/* head */}
                   <thead className="bg-red-400 text-white">

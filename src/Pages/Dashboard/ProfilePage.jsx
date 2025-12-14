@@ -74,7 +74,7 @@ const ProfilePage = () => {
       </div>
 
       {/* CARD */}
-      <div className="card bg-base-100 shadow-lg p-8 bg-gray-500">
+      <div className="card shadow-lg p-8 bg-gray-500">
         <div className="flex justify-center mb-4">
           <img
             src={userData?.photoURL}

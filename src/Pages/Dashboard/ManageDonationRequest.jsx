@@ -59,7 +59,9 @@ const ManageDonationRequest = () => {
       });
   };
   return (
-    <div className="min-h-screen bg-gradient-to-b from-red-400  to-red-300 flex items-center justify-center px-4">
+    <div
+      className={`min-h-screen bg-linear-to-b from-red-400  to-red-300 flex items-center justify-center px-4`}
+    >
       <div className="w-full max-w-2xl bg-white/95 backdrop-blur rounded-2xl shadow-2xl p-6 md:p-8">
         <h2 className="text-3xl font-semibold text-center text-red-600 mb-8">
           Edit Donation Request
