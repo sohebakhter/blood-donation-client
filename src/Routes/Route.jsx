@@ -21,7 +21,7 @@ import Funding from "../Pages/Funding";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancelled from "../Pages/Payment/PaymentCancelled";
 import PaymentLayout from "../Layouts/PaymentLayout";
-import RootLayout from "../layouts/RootLayout";
+import RootLayout from "../Layouts/RootLayout";
 
 export const router = createBrowserRouter([
   {
