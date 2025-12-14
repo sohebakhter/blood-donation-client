@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const ManageDonationRequest = () => {
   const { id } = useParams();
@@ -24,7 +25,19 @@ const ManageDonationRequest = () => {
     fullAddress,
     donationStatus,
   } = realData || {};
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+
+  useEffect(() => {
+    if (realData && Object.keys(realData).length > 0) {
+      reset({
+        recipientName: realData.recipientName,
+        recipientDistrict: realData.recipientDistrict,
+        recipientUpazila: realData.recipientUpazila,
+        hospitalName: realData.hospitalName,
+        fullAddress: realData.fullAddress,
+      });
+    }
+  }, [realData, reset]);
 
   //update request data
   const onSubmit = (data) => {
@@ -116,7 +129,7 @@ const ManageDonationRequest = () => {
 
             {/* submit */}
             <div className="md:col-span-2 flex justify-center">
-              <button className="btn btn-error px-10 mt-4 text-lg">
+              <button className="btn btn-error px-10 mt-4 text-lg text-white">
                 Update Request
               </button>
             </div>
