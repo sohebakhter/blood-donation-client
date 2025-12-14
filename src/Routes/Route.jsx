@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import RootLayout from "../layouts/RootLayout";
+
 import Home from "../Pages/Home/Home";
 import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Auth/Login";
@@ -21,11 +21,12 @@ import Funding from "../Pages/Funding";
 import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancelled from "../Pages/Payment/PaymentCancelled";
 import PaymentLayout from "../Layouts/PaymentLayout";
+import RootLayout from "../layouts/RootLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout></RootLayout>,
+    Component: RootLayout,
     hydrateFallbackElement: <div>Loading...</div>,
     children: [
       {
