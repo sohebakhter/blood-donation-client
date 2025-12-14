@@ -23,7 +23,9 @@ const PaymentSuccess = () => {
   }, [session_id, axiosSecure]);
   return (
     <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl text-fuchsia-400">Payment Successfull</h1>
+      <h1 className="text-4xl font-semibold text-red-400 text-center">
+        Payment Successfull
+      </h1>
     </div>
   );
 };

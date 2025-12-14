@@ -12,7 +12,7 @@ const MyDonationRequests = () => {
   const [totalRequest, setTotalRequest] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const limit = 10;
+  const limit = 12;
 
   const {
     data: requests = [],
