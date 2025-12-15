@@ -24,7 +24,7 @@ const PaymentSuccess = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-4xl font-semibold text-red-400 text-center">
-        Payment Successfull
+        Payment Successfull Thaanks
       </h1>
     </div>
   );
