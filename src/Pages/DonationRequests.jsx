@@ -6,13 +6,17 @@ import { Link } from "react-router";
 const DonationRequests = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: pendingData = [] } = useQuery({
+  const { data: pendingData = [], isLoading } = useQuery({
     queryKey: ["donationRequests", "pending"],
     queryFn: async () => {
       const res = await axiosSecure.get("/donation-requests?status=pending");
       return res.data;
     },
   });
+
+  if (isLoading) {
+    return <p>Loading .......................................</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto">
