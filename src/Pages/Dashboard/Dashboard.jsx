@@ -231,37 +231,92 @@ const Dashboard = () => {
 
       {/* Dashboard এ admin এর অংশ এখানে  */}
       {(role === "admin" || role === "volunteer") && (
-        <div className="flex items-center justify-center gap-10">
-          <div className=" flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
-            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
-              <HeartPulse className="text-red-600" />
+        <div
+          className="
+    max-w-7xl mx-auto
+    px-4
+    py-12
+    grid
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-3
+    gap-6
+  "
+        >
+          {/* Total Donors */}
+          <div
+            className="
+      flex flex-col
+      items-center
+      justify-center
+      p-6 sm:p-10
+      rounded-2xl
+      shadow-2xl
+      transition-transform
+      hover:scale-105
+    "
+          >
+            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
+              <HeartPulse className="text-red-600 text-4xl" />
             </div>
-            <h2 className="text-7xl font-semibold text-red-600">
+
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
               {donors.length}
             </h2>
-            <h1 className="text-xl font-semibold text-gray-600">
+
+            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
               Total Donor User
             </h1>
           </div>
-          <div className=" flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
-            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
-              <CircleDollarSign className="text-red-600" />
+
+          {/* Total Funding */}
+          <div
+            className="
+      flex flex-col
+      items-center
+      justify-center
+      p-6 sm:p-10
+      rounded-2xl
+      shadow-2xl
+      transition-transform
+      hover:scale-105
+    "
+          >
+            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
+              <CircleDollarSign className="text-red-600 text-4xl" />
             </div>
-            <h2 className="text-7xl font-semibold text-red-600">
+
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
               ${totalAmount}
             </h2>
-            <h1 className="text-xl font-semibold text-gray-600">
+
+            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
               Total Funding
             </h1>
           </div>
-          <div className="flex flex-col justify-center items-center p-10 rounded-2xl shadow-2xl hover:scale-105">
-            <div className="bg-red-100 p-2 flex items-center justify-center w-20 rounded-full">
-              <Syringe className="text-red-600" />
+
+          {/* Total Requests */}
+          <div
+            className="
+      flex flex-col
+      items-center
+      justify-center
+      p-6 sm:p-10
+      rounded-2xl
+      shadow-2xl
+      transition-transform
+      hover:scale-105
+    "
+          >
+            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
+              <Syringe className="text-red-600 text-4xl" />
             </div>
-            <h2 className="text-7xl font-semibold text-red-600">
+
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
               {totalReq.length}
             </h2>
-            <h1 className="text-xl font-semibold text-gray-600">
+
+            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
               Total Blood Donation Request
             </h1>
           </div>

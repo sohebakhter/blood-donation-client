@@ -68,7 +68,7 @@ const MyDonationRequests = () => {
   return (
     <div>
       <div className=" w-full px-4">
-        <div className="flex justify-between items-center">
+        <div className="md:flex justify-between items-center">
           <h2 className="text-4xl font-semibold mb-4 text-red-600">
             My Donation Requests
           </h2>

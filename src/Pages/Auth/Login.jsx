@@ -27,7 +27,7 @@ const Login = () => {
       });
   };
   return (
-    <div className="flex justify-center items-center p-20">
+    <div className="flex justify-center items-center p-10 md:p-20">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <form onSubmit={handleSubmit(handleLogin)}>
