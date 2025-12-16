@@ -19,7 +19,7 @@ const Featured = () => {
   ];
 
   return (
-    <div className="py-16 bg-base-100 mt-15">
+    <div className="py-16 bg-base-100">
       <h2 className="text-5xl text-gray-600 font-bold text-center mb-10">
         Why Donate Through Us?
       </h2>

@@ -38,9 +38,9 @@ const Navbar = () => {
   };
   return (
     <div className="shadow-sm ">
-      <div className="max-w-7xl mx-auto navbar bg-base-100">
+      <div className="max-w-7xl mx-auto navbar bg-base-100 flex flex-col md:flex-row">
         <div className="flex-1 flex items-center">
-          <img src={logo} alt="" className="w-16 rounded-full" />
+          <img src={logo} alt="logo" className="w-16 rounded-full" />
           <Link to="/" className="font-semibold text-red-600 text-5xl">
             Red Love
           </Link>
