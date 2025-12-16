@@ -1,5 +1,7 @@
 import React from "react";
 import logo from "../assets/logo.jpg";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -82,12 +84,13 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <a
+                <Link
+                  to="/about"
                   className="hover:text-primary hover:pl-1 transition-all duration-300 block"
                   href="#"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -152,24 +155,36 @@ const Footer = () => {
               </button>
             </form>
             <div className="flex items-center space-x-3 pt-2">
-              <a
+              <Link
+                to="https://www.facebook.com/realsohebakhter"
+                target="_blank"
                 className="w-10 h-10 bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="font-bold text-lg">F</span>
-              </a>
-              <a
+                <span className="font-bold text-lg">
+                  <FaFacebook />
+                </span>
+              </Link>
+              <Link
+                to="https://github.com/sohebakhter"
+                target="_blank"
                 className="w-10 h-10  bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="material-icons text-lg">X</span>
-              </a>
-              <a
+                <span className="material-icons text-lg">
+                  <FaGithub />
+                </span>
+              </Link>
+              <Link
+                to="https://www.linkedin.com/in/soheb-akhter"
+                target="_blank"
                 className="w-10 h-10 bg-red-600 text-white rounded flex items-center justify-center transition-transform transform hover:-translate-y-1 shadow-md"
                 href="#"
               >
-                <span className="material-icons text-lg">L</span>
-              </a>
+                <span className="material-icons text-lg">
+                  <FaLinkedin />
+                </span>
+              </Link>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import Loading from "../../Components/Loading";
 
 const DonationRequestDetails = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const DonationRequestDetails = () => {
   const { user } = useAuth();
   const openModal = useRef();
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["donation-details", id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/donation-requests/${id}`);
@@ -32,7 +33,9 @@ const DonationRequestDetails = () => {
       }
     });
   };
-
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className=" mx-auto px-4 py-6">
       {/* Title */}
