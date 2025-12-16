@@ -2,6 +2,7 @@ import React from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import Loading from "../Components/Loading";
 
 const DonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -15,7 +16,7 @@ const DonationRequests = () => {
   });
 
   if (isLoading) {
-    return <p>Loading .......................................</p>;
+    return <Loading></Loading>;
   }
 
   return (

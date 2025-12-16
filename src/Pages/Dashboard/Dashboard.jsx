@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useRole from "../../Hooks/useRole";
 import { CircleDollarSign, HeartPulse, Syringe } from "lucide-react";
+import Loading from "../../Components/Loading";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -32,6 +33,7 @@ const Dashboard = () => {
       return res.data;
     },
   });
+
   // console.log("donation requests data test", requests);
 
   const handleDone = (id) => {
@@ -83,7 +85,7 @@ const Dashboard = () => {
   };
 
   //Dashboard এ admin এর অংশ এখানে
-  const { data: donors = [] } = useQuery({
+  const { data: donors = [], isLoading } = useQuery({
     queryKey: ["donor"], //backend theke je data antesi.. sei data Key hisebe bosbe
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?role=donor`);
@@ -109,7 +111,9 @@ const Dashboard = () => {
 
   const totalAmount = payments.reduce((sum, i) => sum + i.amount, 0);
   console.log(totalAmount);
-
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h1 className="text-4xl font-normal text-center py-5">

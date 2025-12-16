@@ -3,6 +3,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import Loading from "../../Components/Loading";
 
 const MyDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -33,7 +34,7 @@ const MyDonationRequests = () => {
       return res.data.data;
     },
   });
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading></Loading>;
   console.log(requests, "aaaaaaaaaaaa", totalRequest, totalPage);
 
   //এখানে ফিলটার করা হচ্ছে (with Status)

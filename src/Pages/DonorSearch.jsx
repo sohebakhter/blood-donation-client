@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useLoaderData } from "react-router";
+import Loading from "../Components/Loading";
 
 const DonorSearch = () => {
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, control } = useForm(); //এখানে এর ভূমিকা সব থেকে বেশি react hook form
   const [donors, setDonors] = useState([]);
+
   const realData = useLoaderData();
   //   console.log("realdata", realData);
   const [upazilas, setUpazilas] = useState([]);
@@ -43,6 +45,7 @@ const DonorSearch = () => {
           role: "donor",
         },
       });
+
       setDonors(res.data);
     } catch (error) {
       console.error(error);

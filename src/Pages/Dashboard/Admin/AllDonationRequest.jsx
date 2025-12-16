@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Loading from "../../../Components/Loading";
 
 const AllDonationRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -11,7 +12,11 @@ const AllDonationRequest = () => {
   // const [page, setPage] = useState(1);
   // const limit = 10;`
 
-  const { data: requests = [], refetch } = useQuery({
+  const {
+    data: requests = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["total-donation"],
     queryFn: async () => {
       const res = await axiosSecure.get("/total-donation");
@@ -47,6 +52,10 @@ const AllDonationRequest = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <div className=" w-full px-4">

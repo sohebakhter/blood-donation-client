@@ -3,12 +3,17 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useRole from "../../../Hooks/useRole";
+import Loading from "../../../Components/Loading";
 
 const AllUsers = () => {
   const { role } = useRole();
   const axiosSecure = useAxiosSecure();
 
-  const { data: allUser = [], refetch } = useQuery({
+  const {
+    data: allUser = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["all-users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/all-users");
@@ -78,6 +83,9 @@ const AllUsers = () => {
     });
   };
 
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       {role === "admin" && (

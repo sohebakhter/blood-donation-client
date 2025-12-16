@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../Components/Loading";
 
 const Funding = () => {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ const Funding = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const limit = 12;
 
-  const { data: payments = [] } = useQuery({
+  const { data: payments = [], isLoading } = useQuery({
     queryKey: ["all-payments", currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -25,6 +26,10 @@ const Funding = () => {
       return res.data.data;
     },
   });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   console.log(totalRequest);
 
