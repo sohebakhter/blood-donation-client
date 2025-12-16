@@ -4,8 +4,6 @@
 
 👉 Live URL: [Live-Link](https://client-blood-donation.netlify.app/)
 
-(Replace with your actual deployed link)
-
 ## 📌 Project Purpose
 
 Red Love is a community-driven blood donation platform designed to connect blood donors with people in urgent need.
@@ -66,7 +64,7 @@ Stripe (for payments)
 
 ## 🚀 How to Run the Project Locally
 
-git clone https://github.com/your-username/red-love.git
+git clone [Link](https://github.com/sohebakhter/blood-donation-client.git)
 cd red-love
 npm install
 npm run dev
