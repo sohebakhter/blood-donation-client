@@ -11,7 +11,7 @@ import Loading from "../../Components/Loading";
 
 const Dashboard = () => {
   const { role } = useRole();
-  // console.log("this is the role", role);
+
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   //user indevitual data for WELCOMING
@@ -23,9 +23,6 @@ const Dashboard = () => {
     },
   });
 
-  // const [page, setPage] = useState(1);
-  // const limit = 10;
-
   const { data: requests = [], refetch } = useQuery({
     queryKey: ["dashboard", user?.email],
     queryFn: async () => {
@@ -34,15 +31,13 @@ const Dashboard = () => {
     },
   });
 
-  // console.log("donation requests data test", requests);
-
   const handleDone = (id) => {
     // Update the donation request status to "done"
     const updateInfo = { donationStatus: "done" };
     axiosSecure.patch(`/donation-requests/${id}`, updateInfo).then((res) => {
       if (res.data.modifiedCount) {
         toast("Donation request marked as done.");
-        // Optionally, refetch the requests or update the local state
+
         refetch();
       }
     });
@@ -110,10 +105,15 @@ const Dashboard = () => {
   });
 
   const totalAmount = payments.reduce((sum, i) => sum + i.amount, 0);
-  console.log(totalAmount);
+
+  const hasInProgress = requests?.some(
+    (r) => r.donationStatus === "inprogress"
+  );
+
   if (isLoading) {
     return <Loading></Loading>;
   }
+
   return (
     <div>
       <h1 className="text-4xl font-normal text-center py-5">
@@ -137,8 +137,6 @@ const Dashboard = () => {
                   <thead className="bg-red-400 text-white">
                     <tr>
                       <th>#</th>
-                      <th>RequesterName</th>
-
                       <th>RecipientName</th>
                       <th>RecipientDistrict</th>
                       <th>RecipientUpazila</th>
@@ -146,6 +144,13 @@ const Dashboard = () => {
                       <th>Donation Time</th>
                       <th>Needed Group</th>
                       <th>Status</th>
+                      {hasInProgress && (
+                        <>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Actions</th>
+                        </>
+                      )}
                     </tr>
                   </thead>
                   <tbody className="">
@@ -154,9 +159,6 @@ const Dashboard = () => {
                         <th className="font-semibold text-lg text-gray-600">
                           {i + 1}
                         </th>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.requesterName}
-                        </td>
 
                         <td className="font-semibold text-lg text-gray-600">
                           {r.recipientName}
@@ -180,39 +182,49 @@ const Dashboard = () => {
                           {r.donationStatus}
                         </td>
                         {r.donationStatus === "inprogress" && (
+                          <>
+                            <td className="font-semibold text-lg text-gray-600">
+                              {r.requesterName}
+                            </td>
+                            <td className="font-semibold text-lg text-gray-600">
+                              {r.requesterEmail}
+                            </td>
+                          </>
+                        )}
+                        {r.donationStatus === "inprogress" && (
                           <td className="flex">
-                            <td className="btn btn-neutral">
+                            <button className="btn btn-neutral">
                               <Link
                                 to={`/dashboard/manage-donation-request/${r._id}`}
                               >
                                 Edit
                               </Link>
-                            </td>
-                            <td
+                            </button>
+                            <button
                               onClick={() => handleDelete(r._id)}
                               className="btn btn-error"
                             >
                               Delete
-                            </td>
-                            <td className="btn btn-neutral">
+                            </button>
+                            <button className="btn btn-neutral">
                               <Link
                                 to={`/dashboard/donation-request-details/${r._id}`}
                               >
                                 View
                               </Link>
-                            </td>
-                            <td
+                            </button>
+                            <button
                               onClick={() => handleDone(r._id)}
                               className="btn btn-primary"
                             >
                               Done
-                            </td>
-                            <td
+                            </button>
+                            <button
                               onClick={() => handleCancel(r._id)}
                               className="btn btn-warning"
                             >
                               Cancel
-                            </td>
+                            </button>
                           </td>
                         )}
                       </tr>

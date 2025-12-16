@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useRole from "../../../Hooks/useRole";
 import Loading from "../../../Components/Loading";
+import { useState } from "react";
 
 const AllUsers = () => {
   const { role } = useRole();
   const axiosSecure = useAxiosSecure();
-
+  const [status, setStatus] = useState("all");
   const {
     data: allUser = [],
     refetch,
@@ -20,6 +21,10 @@ const AllUsers = () => {
       return res.data;
     },
   });
+
+  //এখানে ফিলটার করা হচ্ছে (with Status)
+  const filteredUsers =
+    status === "all" ? allUser : allUser.filter((s) => s.status === status);
 
   const handleBlock = (id) => {
     // Update the user status to "blocked"
@@ -90,9 +95,22 @@ const AllUsers = () => {
     <div>
       {role === "admin" && (
         <>
-          <h1 className="text-4xl text-center text-red-400 font-semibold p-5">
-            All Users
-          </h1>
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <h1 className="text-4xl text-red-400 font-semibold p-5">
+              All Users
+            </h1>
+
+            {/* filter by status */}
+            <select
+              className="select"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="active">active</option>
+              <option value="blocked">blocked</option>
+            </select>
+          </div>
 
           <div className="overflow-x-auto">
             <table className="table">
@@ -108,8 +126,8 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody className="bg-red-100 text-lg">
-                {allUser.map((u, i) => (
-                  <tr>
+                {filteredUsers.map((u, i) => (
+                  <tr key={i}>
                     <th>{i + 1}</th>
                     <td>
                       <div className="flex items-center gap-3">

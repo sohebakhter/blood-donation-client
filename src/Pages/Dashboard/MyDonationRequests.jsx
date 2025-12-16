@@ -4,6 +4,8 @@ import useAuth from "../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import Loading from "../../Components/Loading";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const MyDonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,7 +37,7 @@ const MyDonationRequests = () => {
     },
   });
   if (isLoading) return <Loading></Loading>;
-  console.log(requests, "aaaaaaaaaaaa", totalRequest, totalPage);
+  console.log(totalRequest);
 
   //এখানে ফিলটার করা হচ্ছে (with Status)
   const filteredRequests =
@@ -62,6 +64,31 @@ const MyDonationRequests = () => {
         toast("Donation request marked as cancelled.");
         // Optionally, refetch the requests or update the local state
         refetch();
+      }
+    });
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/donation-requests/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
       }
     });
   };
@@ -133,6 +160,26 @@ const MyDonationRequests = () => {
                   </td>
                   {r.donationStatus === "inprogress" && (
                     <td className="flex">
+                      <button className="btn btn-neutral">
+                        <Link
+                          to={`/dashboard/manage-donation-request/${r._id}`}
+                        >
+                          Edit
+                        </Link>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(r._id)}
+                        className="btn btn-error"
+                      >
+                        Delete
+                      </button>
+                      <button className="btn btn-neutral">
+                        <Link
+                          to={`/dashboard/donation-request-details/${r._id}`}
+                        >
+                          View
+                        </Link>
+                      </button>
                       <button
                         onClick={() => handleDone(r._id)}
                         className="btn btn-primary"
@@ -141,7 +188,7 @@ const MyDonationRequests = () => {
                       </button>
                       <button
                         onClick={() => handleCancel(r._id)}
-                        className="btn btn-warning ml-2"
+                        className="btn btn-warning"
                       >
                         Cancel
                       </button>
@@ -164,6 +211,7 @@ const MyDonationRequests = () => {
         </button>
         {[...Array(totalPage).keys()].map((i) => (
           <button
+            key={i}
             onClick={() => setCurrentPage(i)}
             className={`btn py-2 px-4 ${i === currentPage && "btn-primary"}`}
           >

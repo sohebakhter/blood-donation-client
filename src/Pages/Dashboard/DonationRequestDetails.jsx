@@ -24,12 +24,15 @@ const DonationRequestDetails = () => {
     openModal.current.showModal();
   };
 
-  const handleConfirmDonate = () => {
+  const handleConfirmDonate = (e) => {
+    e.preventDefault();
     const updatedInfo = { donationStatus: "inprogress" };
     axiosSecure.patch(`/donation-requests/${id}`, updatedInfo).then((res) => {
-      if (res.data.modifiedCount) {
+      console.log(res.data);
+      if (res.data.modifiedCount || res.data.matchedCount) {
         toast.success("Donation In Progress");
         refetch();
+        openModal.current.close();
       }
     });
   };

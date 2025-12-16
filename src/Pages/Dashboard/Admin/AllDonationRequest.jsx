@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-// import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Loading from "../../../Components/Loading";
+import Swal from "sweetalert2";
+import { Link } from "react-router";
+import useRole from "../../../Hooks/useRole";
 
 const AllDonationRequest = () => {
   const axiosSecure = useAxiosSecure();
-  // const { user } = useAuth();
+  const { role } = useRole();
+
   const [status, setStatus] = useState("all");
-  // const [page, setPage] = useState(1);
-  // const limit = 10;`
 
   const {
     data: requests = [],
@@ -53,6 +54,33 @@ const AllDonationRequest = () => {
     });
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/donation-requests/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+  const isAvailable = filteredRequests.some(
+    (s) => s.donationStatus === "inprogress"
+  );
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -88,6 +116,7 @@ const AllDonationRequest = () => {
                 <th>RecipientDistrict</th>
                 <th>Needed Group</th>
                 <th>Donation Status</th>
+                {isAvailable && <th>Actions</th>}
               </tr>
             </thead>
             <tbody className="bg-red-200">
@@ -121,6 +150,30 @@ const AllDonationRequest = () => {
                   </td>
                   {r.donationStatus === "inprogress" && (
                     <td className="flex">
+                      {role === "admin" && (
+                        <>
+                          <button className="btn btn-neutral">
+                            <Link
+                              to={`/dashboard/manage-donation-request/${r._id}`}
+                            >
+                              Edit
+                            </Link>
+                          </button>
+                          <button
+                            onClick={() => handleDelete(r._id)}
+                            className="btn btn-error"
+                          >
+                            Delete
+                          </button>
+                          <button className="btn btn-neutral">
+                            <Link
+                              to={`/dashboard/donation-request-details/${r._id}`}
+                            >
+                              View
+                            </Link>
+                          </button>
+                        </>
+                      )}
                       <button
                         onClick={() => handleDone(r._id)}
                         className="btn btn-primary"
@@ -129,7 +182,7 @@ const AllDonationRequest = () => {
                       </button>
                       <button
                         onClick={() => handleCancel(r._id)}
-                        className="btn btn-warning ml-2"
+                        className="btn btn-warning"
                       >
                         Cancel
                       </button>
