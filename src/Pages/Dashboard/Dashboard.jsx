@@ -8,6 +8,25 @@ import Swal from "sweetalert2";
 import useRole from "../../Hooks/useRole";
 import { CircleDollarSign, HeartPulse, Syringe } from "lucide-react";
 import Loading from "../../Components/Loading";
+import { motion } from "framer-motion";
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, Legend, CartesianGrid } from 'recharts';
+import {
+  FaUser,
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+  FaClock,
+  FaTint,
+  FaEye,
+  FaEdit,
+  FaTrash,
+  FaCheck,
+  FaTimes,
+  FaPlus,
+  FaHeart,
+  FaUsers,
+  FaDollarSign,
+  FaClipboardList,
+} from "react-icons/fa";
 
 const Dashboard = () => {
   const { role } = useRole();
@@ -110,234 +129,467 @@ const Dashboard = () => {
     (r) => r.donationStatus === "inprogress"
   );
 
+  // Chart Data Preparation
+  const statusStats = [
+    { name: 'Pending', value: totalReq.filter(r => r.donationStatus === 'pending').length, color: '#FACC15' },
+    { name: 'In Progress', value: totalReq.filter(r => r.donationStatus === 'inprogress').length, color: '#3B82F6' },
+    { name: 'Done', value: totalReq.filter(r => r.donationStatus === 'done').length, color: '#22C55E' },
+    { name: 'Cancelled', value: totalReq.filter(r => r.donationStatus === 'cancelled').length, color: '#9CA3AF' }
+  ].filter(item => item.value > 0);
+
+  const bloodGroupStats = donors.reduce((acc, donor) => {
+    const group = donor.bloodGroup;
+    if (!group) return acc;
+    const existing = acc.find(item => item.name === group);
+    if (existing) {
+      existing.value += 1;
+    } else {
+      acc.push({ name: group, value: 1 });
+    }
+    return acc;
+  }, []).sort((a, b) => b.value - a.value);
+
   if (isLoading) {
     return <Loading></Loading>;
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        duration: 0.6,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 },
+  };
+
   return (
-    <div>
-      <h1 className="text-4xl font-normal text-center py-5">
-        Hello Welcome
-        <span className="text-red-500 font-bold"> {userData?.displayName}</span>
-      </h1>
-      {/* Dashboard এ donor এর অংশ এখানে  */}
-      {role === "donor" && (
-        <>
-          {requests.length === 0 ? (
-            <h1 className="text-5xl text-gray-400 text-center mt-24">
-              Nothing Found
-            </h1>
-          ) : (
-            <>
-              <div
-                className={`overflow-x-auto bg-linear-to-b from-red-300 to-red-100`}
-              >
-                <table className="table table-zebra">
-                  {/* head */}
-                  <thead className="bg-red-400 text-white">
-                    <tr>
-                      <th>#</th>
-                      <th>RecipientName</th>
-                      <th>RecipientDistrict</th>
-                      <th>RecipientUpazila</th>
-                      <th>Donation Date</th>
-                      <th>Donation Time</th>
-                      <th>Needed Group</th>
-                      <th>Status</th>
-                      {hasInProgress && (
-                        <>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Actions</th>
-                        </>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody className="">
-                    {requests?.map((r, i) => (
-                      <tr key={i}>
-                        <th className="font-semibold text-lg text-gray-600">
-                          {i + 1}
-                        </th>
-
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.recipientName}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.recipientDistrict}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.recipientUpazila}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.donationDate}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.donationTime}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.bloodGroup}
-                        </td>
-                        <td className="font-semibold text-lg text-gray-600">
-                          {r.donationStatus}
-                        </td>
-                        {r.donationStatus === "inprogress" && (
-                          <>
-                            <td className="font-semibold text-lg text-gray-600">
-                              {r.requesterName}
-                            </td>
-                            <td className="font-semibold text-lg text-gray-600">
-                              {r.requesterEmail}
-                            </td>
-                          </>
-                        )}
-                        {r.donationStatus === "inprogress" && (
-                          <td className="flex">
-                            <button className="btn btn-neutral">
-                              <Link
-                                to={`/dashboard/manage-donation-request/${r._id}`}
-                              >
-                                Edit
-                              </Link>
-                            </button>
-                            <button
-                              onClick={() => handleDelete(r._id)}
-                              className="btn btn-error"
-                            >
-                              Delete
-                            </button>
-                            <button className="btn btn-neutral">
-                              <Link
-                                to={`/dashboard/donation-request-details/${r._id}`}
-                              >
-                                View
-                              </Link>
-                            </button>
-                            <button
-                              onClick={() => handleDone(r._id)}
-                              className="btn btn-primary"
-                            >
-                              Done
-                            </button>
-                            <button
-                              onClick={() => handleCancel(r._id)}
-                              className="btn btn-warning"
-                            >
-                              Cancel
-                            </button>
-                          </td>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex justify-center mt-5">
-                <Link
-                  to="/dashboard/my-donation-requests"
-                  className="btn btn-primary "
-                >
-                  View My All Request
-                </Link>
-              </div>
-            </>
-          )}
-        </>
-      )}
-
-      {/* Dashboard এ admin এর অংশ এখানে  */}
-      {(role === "admin" || role === "volunteer") && (
-        <div
-          className="
-    max-w-7xl mx-auto
-    px-4
-    py-12
-    grid
-    grid-cols-1
-    sm:grid-cols-2
-    lg:grid-cols-3
-    gap-6
-  "
+    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Welcome Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
         >
-          {/* Total Donors */}
-          <div
-            className="
-      flex flex-col
-      items-center
-      justify-center
-      p-6 sm:p-10
-      rounded-2xl
-      shadow-2xl
-      transition-transform
-      hover:scale-105
-    "
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+            Welcome back,
+            <span className="bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent ml-2">
+              {userData?.displayName}
+            </span>
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Manage your donation requests and track your impact in saving lives
+          </p>
+          <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
+        </motion.div>
+
+        {/* Dashboard এ donor এর অংশ এখানে  */}
+        {role === "donor" && (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-8"
           >
-            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
-              <HeartPulse className="text-red-600 text-4xl" />
-            </div>
+            {requests.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-16"
+              >
+                <div className="text-6xl mb-4">🩸</div>
+                <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+                  No Donation Requests
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  You haven't created any donation requests yet.
+                </p>
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 inline-flex items-center space-x-2"
+                >
+                  <FaPlus />
+                  <span>Create Your First Request</span>
+                </motion.button>
+              </motion.div>
+            ) : (
+              <>
+                {/* Requests Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {requests?.map((request, i) => (
+                    <motion.div
+                      key={request._id}
+                      variants={cardVariants}
+                      whileHover={{
+                        scale: 1.02,
+                        boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
+                      }}
+                      className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100"
+                    >
+                      {/* Card Header */}
+                      <div className="bg-linear-to-r from-red-500 to-red-600 p-4 text-white">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <FaHeart className="text-lg" />
+                            <span className="font-semibold">
+                              Request #{i + 1}
+                            </span>
+                          </div>
+                          <div
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${request.donationStatus === "pending"
+                              ? "bg-yellow-400 text-yellow-900"
+                              : request.donationStatus === "inprogress"
+                                ? "bg-blue-400 text-blue-900"
+                                : request.donationStatus === "done"
+                                  ? "bg-green-400 text-green-900"
+                                  : "bg-gray-400 text-gray-900"
+                              }`}
+                          >
+                            {request.donationStatus}
+                          </div>
+                        </div>
+                      </div>
 
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
-              {donors.length}
-            </h2>
+                      {/* Card Body */}
+                      <div className="p-6 space-y-4">
+                        {/* Recipient Info */}
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-linear-to-r from-red-400 to-red-500 rounded-full flex items-center justify-center">
+                            <FaUser className="text-white text-sm" />
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500 font-medium">
+                              Recipient
+                            </p>
+                            <p className="text-gray-800 font-semibold">
+                              {request.recipientName}
+                            </p>
+                          </div>
+                        </div>
 
-            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
-              Total Donor User
-            </h1>
-          </div>
+                        {/* Location */}
+                        <div className="flex items-center space-x-2 text-gray-600">
+                          <FaMapMarkerAlt className="text-red-500" />
+                          <span className="text-sm">
+                            {request.recipientDistrict},{" "}
+                            {request.recipientUpazila}
+                          </span>
+                        </div>
 
-          {/* Total Funding */}
-          <div
-            className="
-      flex flex-col
-      items-center
-      justify-center
-      p-6 sm:p-10
-      rounded-2xl
-      shadow-2xl
-      transition-transform
-      hover:scale-105
-    "
-          >
-            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
-              <CircleDollarSign className="text-red-600 text-4xl" />
-            </div>
+                        {/* Date & Time */}
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="flex items-center space-x-2">
+                            <FaCalendarAlt className="text-red-500" />
+                            <div>
+                              <p className="text-xs text-gray-500">Date</p>
+                              <p className="text-sm font-semibold">
+                                {request.donationDate}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <FaClock className="text-red-500" />
+                            <div>
+                              <p className="text-xs text-gray-500">Time</p>
+                              <p className="text-sm font-semibold">
+                                {request.donationTime}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
 
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
-              ${totalAmount}
-            </h2>
+                        {/* Blood Group */}
+                        <div className="bg-red-50 rounded-xl p-3">
+                          <div className="flex items-center space-x-2">
+                            <FaTint className="text-red-500" />
+                            <span className="text-red-600 font-bold">
+                              {request.bloodGroup}
+                            </span>
+                          </div>
+                        </div>
 
-            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
-              Total Funding
-            </h1>
-          </div>
+                        {/* Requester Info (only for inprogress) */}
+                        {request.donationStatus === "inprogress" && (
+                          <div className="bg-blue-50 rounded-xl p-3">
+                            <div className="flex items-center space-x-2 mb-2">
+                              <FaUser className="text-blue-500" />
+                              <span className="text-sm font-medium text-blue-700">
+                                Requester
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-700">
+                              {request.requesterName}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {request.requesterEmail}
+                            </p>
+                          </div>
+                        )}
 
-          {/* Total Requests */}
-          <div
-            className="
-      flex flex-col
-      items-center
-      justify-center
-      p-6 sm:p-10
-      rounded-2xl
-      shadow-2xl
-      transition-transform
-      hover:scale-105
-    "
-          >
-            <div className="bg-red-100 p-4 flex items-center justify-center w-20 h-20 rounded-full">
-              <Syringe className="text-red-600 text-4xl" />
-            </div>
+                        {/* Action Buttons */}
+                        <div className="space-y-2">
+                          <motion.button
+                            variants={buttonVariants}
+                            whileHover="hover"
+                            whileTap="tap"
+                            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
+                          >
+                            <FaEye />
+                            <Link
+                              to={`/dashboard/donation-request-details/${request._id}`}
+                            >
+                              <span>View Details</span>
+                            </Link>
+                          </motion.button>
 
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-semibold text-red-600 mt-4">
-              {totalReq.length}
-            </h2>
+                          {request.donationStatus === "inprogress" && (
+                            <div className="grid grid-cols-2 gap-2">
+                              <motion.button
+                                variants={buttonVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-3 rounded-lg transition-all duration-300 flex items-center justify-center space-x-1 text-sm"
+                              >
+                                <FaEdit />
+                                <Link
+                                  to={`/dashboard/manage-donation-request/${request._id}`}
+                                >
+                                  <span>Edit</span>
+                                </Link>
+                              </motion.button>
 
-            <h1 className="text-base sm:text-xl font-semibold text-gray-600 text-center">
-              Total Blood Donation Request
-            </h1>
-          </div>
-        </div>
-      )}
+                              <motion.button
+                                variants={buttonVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                onClick={() => handleDone(request._id)}
+                                className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-3 rounded-lg transition-all duration-300 flex items-center justify-center space-x-1 text-sm"
+                              >
+                                <FaCheck />
+                                <span>Done</span>
+                              </motion.button>
+
+                              <motion.button
+                                variants={buttonVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                onClick={() => handleCancel(request._id)}
+                                className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-3 rounded-lg transition-all duration-300 flex items-center justify-center space-x-1 text-sm"
+                              >
+                                <FaTimes />
+                                <span>Cancel</span>
+                              </motion.button>
+
+                              <motion.button
+                                variants={buttonVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                onClick={() => handleDelete(request._id)}
+                                className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-3 rounded-lg transition-all duration-300 flex items-center justify-center space-x-1 text-sm"
+                              >
+                                <FaTrash />
+                                <span>Delete</span>
+                              </motion.button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* View All Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-center"
+                >
+                  <motion.button
+                    variants={buttonVariants}
+                    whileHover="hover"
+                    whileTap="tap"
+                    className="bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 inline-flex items-center space-x-2 shadow-lg hover:shadow-xl"
+                  >
+                    <FaClipboardList />
+                    <Link to="/dashboard/my-donation-requests">
+                      <span>View All My Requests</span>
+                    </Link>
+                  </motion.button>
+                </motion.div>
+              </>
+            )}
+          </motion.div>
+        )}
+
+        {/* Dashboard এ admin এর অংশ এখানে  */}
+        {(role === "admin" || role === "volunteer") && (
+          <>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {/* Total Donors */}
+              <motion.div
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
+                }}
+                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+              >
+                <div className="bg-linear-to-r from-red-400 to-red-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
+                  <FaUsers className="text-white text-3xl" />
+                </div>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-red-600 mb-2">
+                  {donors.length}
+                </h2>
+                <h3 className="text-lg font-semibold text-gray-700">
+                  Total Donor Users
+                </h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  Active blood donors in our community
+                </p>
+              </motion.div>
+
+              {/* Total Funding */}
+              <motion.div
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
+                }}
+                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+              >
+                <div className="bg-linear-to-r from-green-400 to-green-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
+                  <FaDollarSign className="text-white text-3xl" />
+                </div>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-green-600 mb-2">
+                  ${totalAmount}
+                </h2>
+                <h3 className="text-lg font-semibold text-gray-700">
+                  Total Funding Raised
+                </h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  Contributions supporting our mission
+                </p>
+              </motion.div>
+
+              {/* Total Requests */}
+              <motion.div
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
+                }}
+                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+              >
+                <div className="bg-linear-to-r from-blue-400 to-blue-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
+                  <FaClipboardList className="text-white text-3xl" />
+                </div>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-600 mb-2">
+                  {totalReq.length}
+                </h2>
+                <h3 className="text-lg font-semibold text-gray-700">
+                  Blood Donation Requests
+                </h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  Active requests waiting for donors
+                </p>
+              </motion.div>
+            </motion.div>
+
+            {/* Charts Section */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8"
+            >
+              {/* Donation Status Chart */}
+              <motion.div
+                variants={cardVariants}
+                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 flex flex-col items-center"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-6">Donation Status Distribution</h3>
+                <div className="w-full h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={statusStats}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {statusStats.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </motion.div>
+
+              {/* Blood Group Distribution Chart */}
+              <motion.div
+                variants={cardVariants}
+                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 flex flex-col items-center"
+              >
+                <h3 className="text-xl font-bold text-gray-800 mb-6">Donor Blood Group Distribution</h3>
+                <div className="w-full h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={bloodGroupStats}
+                      margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                      <YAxis axisLine={false} tickLine={false} />
+                      <RechartsTooltip cursor={{ fill: '#FEF2F2' }} />
+                      <Bar dataKey="value" fill="#EF4444" radius={[4, 4, 0, 0]} barSize={40} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

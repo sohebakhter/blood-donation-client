@@ -5,6 +5,19 @@ import axios from "axios";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaCamera,
+  FaTint,
+  FaMapMarkerAlt,
+  FaCity,
+  FaCheckCircle,
+  FaArrowRight,
+  FaHeart,
+} from "react-icons/fa";
 
 const Register = () => {
   const {
@@ -84,182 +97,383 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div className="bg-gray-700 h-50 flex items-center justify-center">
-        <h1 className="text-4xl font-semibold text-white text-center items-center">
-          REGISTRATION
-        </h1>
-      </div>
-      <div className="max-w-7xl mx-auto p-4">
-        <form onSubmit={handleSubmit(handleRegister)} className="space-y-6">
-          <div className="flex flex-col lg:flex-row gap-6 rounded-2xl p-10 bg-gray-200">
-            {/* Left Column */}
-            <div className="flex-1 space-y-4">
-              {/* Email */}
-              <fieldset className="w-full">
-                <label className="label">Email</label>
-                <input
-                  type="email"
-                  {...register("email", { required: true })}
-                  className="input w-full"
-                  placeholder="Email"
-                />
-                {errors.email && (
-                  <p className="text-red-500">Email Is Required</p>
-                )}
-              </fieldset>
-
-              {/* Name */}
-              <fieldset className="w-full">
-                <label className="label">Name</label>
-                <input
-                  type="text"
-                  {...register("name", { required: true })}
-                  className="input w-full"
-                  placeholder="Your Name"
-                />
-                {errors.name && (
-                  <p className="text-red-500">Name Is Required</p>
-                )}
-              </fieldset>
-
-              {/* Password */}
-              <fieldset className="w-full">
-                <label className="label">Password</label>
-                <input
-                  type="password"
-                  {...register("password", {
-                    required: true,
-                    minLength: 6,
-                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
-                  })}
-                  className="input w-full"
-                  placeholder="Password"
-                />
-                {errors.password?.type === "required" && (
-                  <p className="text-red-500">Password Is Required</p>
-                )}
-                {errors.password?.type === "minLength" && (
-                  <p className="text-red-500">
-                    Password must be at least 6 characters
-                  </p>
-                )}
-                {errors.password?.type === "pattern" && (
-                  <p className="text-red-500">
-                    Password must be at least 6 characters, with uppercase,
-                    lowercase, and special character.
-                  </p>
-                )}
-              </fieldset>
-
-              {/* Confirm Password */}
-              <fieldset className="w-full">
-                <label className="label">Confirm Password</label>
-                <input
-                  type="password"
-                  {...register("confirmPassword", {
-                    required: true,
-                    minLength: 6,
-                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
-                  })}
-                  className="input w-full"
-                  placeholder="Confirm Password"
-                />
-              </fieldset>
-            </div>
-
-            {/* Right Column */}
-            <div className="flex-1 space-y-4">
-              {/* Photo */}
-              <fieldset className="w-full">
-                <label className="label">Photo</label>
-                <input
-                  type="file"
-                  {...register("photo", { required: true })}
-                  className="file-input w-full"
-                />
-                {errors.photo && (
-                  <p className="text-red-500">Photo Is Required</p>
-                )}
-              </fieldset>
-
-              {/* Blood Group */}
-              <fieldset className="w-full">
-                <label className="label">Blood Group</label>
-                <select
-                  defaultValue=""
-                  {...register("bloodGroup", { required: true })}
-                  className="select w-full"
-                >
-                  <option value="" disabled>
-                    Pick a Blood Group
-                  </option>
-                  {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
-                    (b, i) => (
-                      <option key={i} value={b}>
-                        {b}
-                      </option>
-                    )
-                  )}
-                </select>
-              </fieldset>
-
-              {/* District */}
-              <fieldset className="w-full">
-                <label className="label">District</label>
-                <select
-                  defaultValue=""
-                  {...register("district", { required: true })}
-                  className="select w-full"
-                >
-                  <option value="" disabled>
-                    Pick a District
-                  </option>
-                  {realData.map((d) => (
-                    <option key={d.id} value={d.id}>
-                      {d.name}
-                    </option>
-                  ))}
-                </select>
-              </fieldset>
-
-              {/* Upazila */}
-              <fieldset className="w-full">
-                <label className="label">Upazila</label>
-                <select
-                  defaultValue=""
-                  {...register("upazila", { required: true })}
-                  className="select w-full"
-                >
-                  <option value="" disabled>
-                    Pick an Upazila
-                  </option>
-                  {upazilaByDistrictId(selectedDistrict).map((u, i) => (
-                    <option key={i} value={u}>
-                      {u}
-                    </option>
-                  ))}
-                </select>
-              </fieldset>
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="btn bg-red-600 text-white w-full mt-4"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50 to-white py-8"
+    >
+      {/* Hero Header */}
+      <motion.div
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="bg-gradient-to-r from-red-600 to-red-700 text-white py-16 mb-8"
+      >
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex justify-center mb-6"
           >
-            Register
-          </button>
+            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+              <FaHeart className="text-3xl text-white" />
+            </div>
+          </motion.div>
+          <motion.h1
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-4xl sm:text-5xl font-bold mb-4"
+          >
+            Join RedLove Community
+          </motion.h1>
+          <motion.p
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-lg sm:text-xl text-red-100 max-w-2xl mx-auto"
+          >
+            Create your account and become part of a life-saving community
+          </motion.p>
+        </div>
+      </motion.div>
 
-          <Link to="/login" state={location?.state}>
-            <p className="text-center mt-2">
-              Already Registered ?
-              <span className="text-red-400 font-semibold"> Login</span>
-            </p>
-          </Link>
-        </form>
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.form
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          onSubmit={handleSubmit(handleRegister)}
+          className="space-y-8"
+        >
+          {/* Main Form Card */}
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden"
+          >
+            <div className="bg-gradient-to-r from-red-500 to-red-600 p-6">
+              <h2 className="text-2xl font-bold text-white text-center">
+                Create Your Account
+              </h2>
+            </div>
+
+            <div className="p-8 lg:p-12">
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Left Column */}
+                <motion.div
+                  initial={{ x: -30, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  className="space-y-6"
+                >
+                  {/* Email */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaEnvelope className="text-red-500" />
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email", { required: true })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Enter your email"
+                    />
+                    {errors.email && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Email is required
+                      </motion.p>
+                    )}
+                  </motion.div>
+
+                  {/* Name */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaUser className="text-red-500" />
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      {...register("name", { required: true })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Enter your full name"
+                    />
+                    {errors.name && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Name is required
+                      </motion.p>
+                    )}
+                  </motion.div>
+
+                  {/* Password */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.0 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaLock className="text-red-500" />
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      {...register("password", {
+                        required: true,
+                        minLength: 6,
+                        pattern:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
+                      })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Create a strong password"
+                    />
+                    {errors.password?.type === "required" && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Password is required
+                      </motion.p>
+                    )}
+                    {errors.password?.type === "minLength" && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Password must be at least 6 characters
+                      </motion.p>
+                    )}
+                    {errors.password?.type === "pattern" && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Password must include uppercase, lowercase, and special
+                        character
+                      </motion.p>
+                    )}
+                  </motion.div>
+
+                  {/* Confirm Password */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.1 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaLock className="text-red-500" />
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      {...register("confirmPassword", {
+                        required: true,
+                        minLength: 6,
+                        pattern:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
+                      })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      placeholder="Confirm your password"
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* Right Column */}
+                <motion.div
+                  initial={{ x: 30, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  className="space-y-6"
+                >
+                  {/* Photo */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaCamera className="text-red-500" />
+                      Profile Photo
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="file"
+                        {...register("photo", { required: true })}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                      />
+                    </div>
+                    {errors.photo && (
+                      <motion.p
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-red-500 text-sm flex items-center gap-1"
+                      >
+                        <FaCheckCircle className="text-xs" />
+                        Profile photo is required
+                      </motion.p>
+                    )}
+                  </motion.div>
+
+                  {/* Blood Group */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaTint className="text-red-500" />
+                      Blood Group
+                    </label>
+                    <select
+                      defaultValue=""
+                      {...register("bloodGroup", { required: true })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    >
+                      <option value="" disabled>
+                        Select your blood group
+                      </option>
+                      {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                        (b, i) => (
+                          <option key={i} value={b}>
+                            {b}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </motion.div>
+
+                  {/* District */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.0 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaMapMarkerAlt className="text-red-500" />
+                      District
+                    </label>
+                    <select
+                      defaultValue=""
+                      {...register("district", { required: true })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    >
+                      <option value="" disabled>
+                        Select your district
+                      </option>
+                      {realData.map((d) => (
+                        <option key={d.id} value={d.id}>
+                          {d.name}
+                        </option>
+                      ))}
+                    </select>
+                  </motion.div>
+
+                  {/* Upazila */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.1 }}
+                    className="space-y-2"
+                  >
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FaCity className="text-red-500" />
+                      Upazila
+                    </label>
+                    <select
+                      defaultValue=""
+                      {...register("upazila", { required: true })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                    >
+                      <option value="" disabled>
+                        Select your upazila
+                      </option>
+                      {upazilaByDistrictId(selectedDistrict).map((u, i) => (
+                        <option key={i} value={u}>
+                          {u}
+                        </option>
+                      ))}
+                    </select>
+                  </motion.div>
+                </motion.div>
+              </div>
+
+              {/* Submit Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+                className="mt-8"
+              >
+                <motion.button
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Create Account
+                  <FaArrowRight className="text-sm" />
+                </motion.button>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Login Link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.4 }}
+            className="text-center"
+          >
+            <Link
+              to="/login"
+              state={location?.state}
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors duration-200"
+            >
+              <span>Already have an account?</span>
+              <span className="font-semibold text-red-600 hover:text-red-700">
+                Sign In Here
+              </span>
+            </Link>
+          </motion.div>
+        </motion.form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

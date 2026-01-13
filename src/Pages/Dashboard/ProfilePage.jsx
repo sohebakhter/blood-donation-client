@@ -4,6 +4,19 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import {
+  FaUser,
+  FaEnvelope,
+  FaTint,
+  FaMapMarkerAlt,
+  FaEdit,
+  FaSave,
+  FaCamera,
+  FaUserCircle,
+  FaIdCard,
+  FaMapPin,
+} from "react-icons/fa";
 
 const ProfilePage = () => {
   const axiosSecure = useAxiosSecure();
@@ -56,86 +69,276 @@ const ProfilePage = () => {
       });
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        duration: 0.6,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 },
+  };
+
   return (
-    <div className="p-10 max-w-3xl mx-auto">
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-4xl font-bold text-red-500">My Profile</h2>
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            My Profile
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Manage your personal information and keep your profile up to date
+          </p>
+          <div className="w-24 h-1 bg-linear-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+        </motion.div>
 
-        {!editable ? (
-          <button className="btn btn-warning" onClick={() => setEditable(true)}>
-            Edit
-          </button>
-        ) : (
-          <button className="btn btn-success" onClick={handleSubmit(onSubmit)}>
-            Save
-          </button>
-        )}
-      </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        >
+          {/* Profile Avatar Card */}
+          <motion.div variants={cardVariants} className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-blue-100 text-center">
+              <div className="relative mb-6">
+                <div className="w-32 h-32 mx-auto rounded-full bg-linear-to-r from-blue-500 to-purple-500 p-1">
+                  <div className="w-full h-full rounded-full bg-white p-1">
+                    {userData?.photoURL ? (
+                      <img
+                        src={userData.photoURL}
+                        alt="Profile"
+                        className="w-full h-full rounded-full object-cover border-2 border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-full h-full rounded-full bg-gray-100 flex items-center justify-center">
+                        <FaUserCircle className="text-4xl text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="absolute bottom-0 right-1/2 transform translate-x-16 bg-white rounded-full p-2 shadow-lg border border-gray-200">
+                  <FaCamera className="text-gray-600 text-sm" />
+                </div>
+              </div>
 
-      {/* CARD */}
-      <div className="card shadow-lg p-8 bg-gray-500">
-        <div className="flex justify-center mb-4">
-          <img
-            src={userData?.photoURL}
-            alt="avatar"
-            className="w-28 h-28 rounded-full border"
-          />
-        </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">
+                {userData?.displayName || "User"}
+              </h3>
+              <p className="text-gray-600 text-sm mb-4">Blood Donor</p>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Full Name */}
-          <input
-            type="text"
-            {...register("displayName")}
-            defaultValue={userData.displayName}
-            disabled={!editable}
-            className="input input-bordered w-full"
-            placeholder="Full Name"
-          />
+              <div className="space-y-3">
+                <div className="flex items-center justify-center space-x-2 text-sm">
+                  <FaTint className="text-red-500" />
+                  <span className="font-semibold text-red-600">
+                    {userData?.bloodGroup || "Not set"}
+                  </span>
+                </div>
 
-          {/* Email (fixed) */}
-          <input
-            type="email"
-            value={userData?.email || ""}
-            disabled
-            className="input input-bordered w-full"
-          />
+                <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                  <FaMapMarkerAlt className="text-blue-500" />
+                  <span>
+                    {userData?.district && userData?.upazila
+                      ? `${userData.district}, ${userData.upazila}`
+                      : "Location not set"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-          {/* Blood Group */}
-          <select
-            {...register("bloodGroup")}
-            defaultValue={userData.bloodGroup}
-            disabled={!editable}
-            className="select select-bordered w-full"
-          >
-            {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((grp) => (
-              <option key={grp} value={grp}>
-                {grp}
-              </option>
-            ))}
-          </select>
+          {/* Profile Form Card */}
+          <motion.div variants={cardVariants} className="lg:col-span-2">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
+              {/* Card Header */}
+              <div className="bg-linear-to-r from-blue-500 to-purple-500 p-6 text-white">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <FaIdCard className="text-2xl" />
+                    <h2 className="text-2xl font-bold">Personal Information</h2>
+                  </div>
 
-          {/* District */}
-          <input
-            type="text"
-            {...register("district")}
-            defaultValue={userData.district}
-            disabled={!editable}
-            className="input input-bordered"
-            placeholder="District"
-          />
+                  {!editable ? (
+                    <motion.button
+                      variants={buttonVariants}
+                      whileHover="hover"
+                      whileTap="tap"
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold flex items-center space-x-2 transition-colors duration-300"
+                      onClick={() => setEditable(true)}
+                    >
+                      <FaEdit />
+                      <span>Edit Profile</span>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      variants={buttonVariants}
+                      whileHover="hover"
+                      whileTap="tap"
+                      className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-semibold flex items-center space-x-2 transition-colors duration-300"
+                      onClick={handleSubmit(onSubmit)}
+                    >
+                      <FaSave />
+                      <span>Save Changes</span>
+                    </motion.button>
+                  )}
+                </div>
+              </div>
 
-          {/* Upazila */}
-          <input
-            type="text"
-            {...register("upazila")}
-            defaultValue={userData.upazila}
-            disabled={!editable}
-            className="input input-bordered"
-            placeholder="Upazila"
-          />
-        </form>
+              {/* Card Body */}
+              <div className="p-6">
+                <form className="space-y-6">
+                  {/* Name and Email Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                        <FaUser className="text-blue-500" />
+                        <span>Full Name</span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("displayName")}
+                        defaultValue={userData.displayName}
+                        disabled={!editable}
+                        className={`input input-bordered w-full transition-all duration-300 ${
+                          editable
+                            ? "border-blue-300 focus:border-blue-500 focus:ring-blue-500 bg-white"
+                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
+                        }`}
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                        <FaEnvelope className="text-purple-500" />
+                        <span>Email Address</span>
+                      </label>
+                      <input
+                        type="email"
+                        value={userData?.email || ""}
+                        disabled
+                        className="input input-bordered w-full bg-gray-50 border-gray-200 cursor-not-allowed"
+                        placeholder="Email address"
+                      />
+                      <p className="text-xs text-gray-500">
+                        Email cannot be changed
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Blood Group and District Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                        <FaTint className="text-red-500" />
+                        <span>Blood Group</span>
+                      </label>
+                      <select
+                        {...register("bloodGroup")}
+                        defaultValue={userData.bloodGroup}
+                        disabled={!editable}
+                        className={`select select-bordered w-full transition-all duration-300 ${
+                          editable
+                            ? "border-red-300 focus:border-red-500 focus:ring-red-500 bg-white"
+                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
+                        }`}
+                      >
+                        {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                          (grp) => (
+                            <option key={grp} value={grp}>
+                              {grp}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                        <FaMapPin className="text-green-500" />
+                        <span>District</span>
+                      </label>
+                      <input
+                        type="text"
+                        {...register("district")}
+                        defaultValue={userData.district}
+                        disabled={!editable}
+                        className={`input input-bordered w-full transition-all duration-300 ${
+                          editable
+                            ? "border-green-300 focus:border-green-500 focus:ring-green-500 bg-white"
+                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
+                        }`}
+                        placeholder="Enter your district"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Upazila Row */}
+                  <div className="space-y-2">
+                    <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                      <FaMapMarkerAlt className="text-orange-500" />
+                      <span>Upazila</span>
+                    </label>
+                    <input
+                      type="text"
+                      {...register("upazila")}
+                      defaultValue={userData.upazila}
+                      disabled={!editable}
+                      className={`input input-bordered w-full transition-all duration-300 ${
+                        editable
+                          ? "border-orange-300 focus:border-orange-500 focus:ring-orange-500 bg-white"
+                          : "bg-gray-50 border-gray-200 cursor-not-allowed"
+                      }`}
+                      placeholder="Enter your upazila"
+                    />
+                  </div>
+                </form>
+
+                {/* Edit Mode Indicator */}
+                {editable && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200"
+                  >
+                    <div className="flex items-center space-x-2 text-blue-700">
+                      <FaEdit className="animate-pulse" />
+                      <span className="font-medium">Edit Mode Active</span>
+                    </div>
+                    <p className="text-sm text-blue-600 mt-1">
+                      Make your changes and click "Save Changes" to update your
+                      profile.
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const { signInUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -40,7 +42,7 @@ const Login = () => {
               <input
                 type="email"
                 {...register("email", { required: true })}
-                className="input"
+                className="input w-full"
                 placeholder="Email"
               />
               {errors.email?.type === "required" && (
@@ -48,12 +50,21 @@ const Login = () => {
               )}
               {/* password */}
               <label className="label text-xl">Password</label>
-              <input
-                type="password"
-                {...register("password", { required: true })}
-                className="input"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  {...register("password", { required: true })}
+                  className="input w-full pr-10"
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
               {errors.password?.type === "required" && (
                 <p className="text-red-500">Password is required</p>
               )}

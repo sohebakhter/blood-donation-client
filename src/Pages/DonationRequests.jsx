@@ -3,6 +3,14 @@ import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import Loading from "../Components/Loading";
+import { motion } from "framer-motion";
+import {
+  FaMapMarkerAlt,
+  FaCalendarAlt,
+  FaClock,
+  FaEye,
+  FaTint,
+} from "react-icons/fa";
 
 const DonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -19,60 +27,161 @@ const DonationRequests = () => {
     return <Loading></Loading>;
   }
 
-  return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-4xl text-center text-red-400 font-semibold p-5">
-        Pending Donation Requests
-      </h1>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          {/* head */}
-          <thead className="bg-red-300">
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>fullAddress</th>
-              <th>bloodGroup</th>
-              <th>donationDate</th>
-              <th>donationTime</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody className="bg-red-100">
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 py-12 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-5xl font-bold bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
+            Pending Donation Requests
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Help save lives by responding to these urgent blood donation
+            requests in your area
+          </p>
+          <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
+        </motion.div>
+
+        {/* Cards Grid */}
+        {pendingData.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16"
+          >
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+              No Pending Requests
+            </h3>
+            <p className="text-gray-500">
+              There are currently no pending donation requests.
+            </p>
+          </motion.div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             {pendingData.map((pending, i) => (
-              <tr key={i}>
-                <th className="text-xl font-semibold text-gray-600">{i + 1}</th>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.recipientName}
-                </td>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.fullAddress}
-                </td>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.bloodGroup}
-                </td>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.donationDate}
-                </td>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.donationTime}
-                </td>
-                <td className="text-xl font-semibold text-gray-600">
-                  {pending.donationStatus}
-                </td>
-                <td className="btn bg-red-500 text-white btn-xs">
+              <motion.div
+                key={pending._id}
+                variants={cardVariants}
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-red-100"
+              >
+                {/* Card Header */}
+                <div className="bg-linear-to-r from-red-500 to-red-600 p-6 text-white">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium opacity-90">
+                      Request #{i + 1}
+                    </span>
+                    <div className="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
+                      <FaTint className="text-sm" />
+                      <span className="text-sm font-semibold">
+                        {pending.bloodGroup}
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold">{pending.recipientName}</h3>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-6 space-y-4">
+                  {/* Address */}
+                  <div className="flex items-start space-x-3">
+                    <FaMapMarkerAlt className="text-red-500 mt-1 shrink-0" />
+                    <div>
+                      <p className="text-sm text-gray-500 font-medium">
+                        Location
+                      </p>
+                      <p className="text-gray-700">{pending.fullAddress}</p>
+                    </div>
+                  </div>
+
+                  {/* Date & Time */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center space-x-2">
+                      <FaCalendarAlt className="text-red-500" />
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">
+                          Date
+                        </p>
+                        <p className="text-sm font-semibold text-gray-700">
+                          {pending.donationDate}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <FaClock className="text-red-500" />
+                      <div>
+                        <p className="text-xs text-gray-500 font-medium">
+                          Time
+                        </p>
+                        <p className="text-sm font-semibold text-gray-700">
+                          {pending.donationTime}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Status Badge */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-medium text-yellow-600 capitalize">
+                        {pending.donationStatus}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Footer */}
+                <div className="px-6 pb-6">
                   <Link
                     to={`/dashboard/donation-request-details/${pending._id}`}
+                    className="w-full bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
                   >
-                    View
+                    <FaEye className="group-hover:scale-110 transition-transform duration-200" />
+                    <span>View Details</span>
                   </Link>
-                </td>
-              </tr>
+                </div>
+              </motion.div>
             ))}
-          </tbody>
-        </table>
+          </motion.div>
+        )}
       </div>
     </div>
   );
