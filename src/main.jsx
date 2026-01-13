@@ -4,6 +4,7 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { router } from "./Routes/Route.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
+import ThemeProvider from "./Context/ThemeContext.jsx";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -14,8 +15,10 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router}></RouterProvider>
-        <ToastContainer></ToastContainer>
+        <ThemeProvider>
+          <RouterProvider router={router}></RouterProvider>
+          <ToastContainer></ToastContainer>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>

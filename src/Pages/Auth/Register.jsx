@@ -63,9 +63,8 @@ const Register = () => {
         const formData = new FormData();
         formData.append("image", profielImg);
 
-        const imageapiURL = `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_image_host_key
-        }`;
+        const imageapiURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key
+          }`;
 
         axios.post(imageapiURL, formData).then((res) => {
           const photoURL = res.data.data.url;
@@ -101,7 +100,7 @@ const Register = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50 to-white py-8"
+      className="min-h-screen bg-base-200 py-8"
     >
       {/* Hero Header */}
       <motion.div
@@ -153,7 +152,7 @@ const Register = () => {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden"
+            className="bg-base-100 rounded-3xl shadow-2xl border border-base-300 overflow-hidden"
           >
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-6">
               <h2 className="text-2xl font-bold text-white text-center">
@@ -184,7 +183,7 @@ const Register = () => {
                     <input
                       type="email"
                       {...register("email", { required: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                       placeholder="Enter your email"
                     />
                     {errors.email && (
@@ -213,7 +212,7 @@ const Register = () => {
                     <input
                       type="text"
                       {...register("name", { required: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                       placeholder="Enter your full name"
                     />
                     {errors.name && (
@@ -247,7 +246,7 @@ const Register = () => {
                         pattern:
                           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
                       })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                       placeholder="Create a strong password"
                     />
                     {errors.password?.type === "required" && (
@@ -302,7 +301,7 @@ const Register = () => {
                         pattern:
                           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$/,
                       })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                       placeholder="Confirm your password"
                     />
                   </motion.div>
@@ -330,7 +329,7 @@ const Register = () => {
                       <input
                         type="file"
                         {...register("photo", { required: true })}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
+                        className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100"
                       />
                     </div>
                     {errors.photo && (
@@ -359,7 +358,7 @@ const Register = () => {
                     <select
                       defaultValue=""
                       {...register("bloodGroup", { required: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                     >
                       <option value="" disabled>
                         Select your blood group
@@ -388,7 +387,7 @@ const Register = () => {
                     <select
                       defaultValue=""
                       {...register("district", { required: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                     >
                       <option value="" disabled>
                         Select your district
@@ -415,7 +414,7 @@ const Register = () => {
                     <select
                       defaultValue=""
                       {...register("upazila", { required: true })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full px-4 py-3 border border-base-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-base-100 hover:bg-base-200"
                     >
                       <option value="" disabled>
                         Select your upazila
@@ -463,7 +462,7 @@ const Register = () => {
             <Link
               to="/login"
               state={location?.state}
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-base-content/70 hover:text-red-600 transition-colors duration-200"
             >
               <span>Already have an account?</span>
               <span className="font-semibold text-red-600 hover:text-red-700">

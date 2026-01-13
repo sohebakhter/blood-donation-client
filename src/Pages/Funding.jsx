@@ -90,7 +90,7 @@ const Funding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -102,7 +102,7 @@ const Funding = () => {
           <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
             Funding History
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
             Track your generous contributions and help us save more lives
           </p>
           <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
@@ -116,11 +116,11 @@ const Funding = () => {
           className="flex justify-between items-center mb-8"
         >
           <div className="flex items-center space-x-4">
-            <div className="bg-white rounded-xl shadow-lg p-4 border border-red-100">
+            <div className="bg-base-100 rounded-xl shadow-lg p-4 border border-base-300">
               <div className="flex items-center space-x-2">
                 <FaMoneyBillWave className="text-red-500 text-xl" />
                 <div>
-                  <p className="text-sm text-gray-500 font-medium">
+                  <p className="text-sm text-base-content/60 font-medium">
                     Total Donations
                   </p>
                   <p className="text-xl font-bold text-red-600">
@@ -151,10 +151,10 @@ const Funding = () => {
             className="text-center py-16"
           >
             <div className="text-6xl mb-4">💝</div>
-            <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+            <h3 className="text-2xl font-semibold text-base-content/70 mb-2">
               No Donations Yet
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-base-content/50 mb-6">
               Be the first to make a difference!
             </p>
             <motion.button
@@ -184,7 +184,7 @@ const Funding = () => {
                     scale: 1.03,
                     boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
                   }}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-red-100"
+                  className="bg-base-100 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-base-300"
                 >
                   {/* Card Header */}
                   <div className="bg-linear-to-r from-red-500 to-red-600 p-4 text-white">
@@ -209,21 +209,21 @@ const Funding = () => {
                         <FaUser className="text-white text-sm" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500 font-medium">
+                        <p className="text-sm text-base-content/60 font-medium">
                           Donor
                         </p>
-                        <p className="text-gray-800 font-semibold">
+                        <p className="text-base-content font-semibold">
                           {payment.senderName}
                         </p>
                       </div>
                     </div>
 
                     {/* Amount */}
-                    <div className="bg-red-50 rounded-xl p-4">
+                    <div className="bg-base-200 rounded-xl p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                           <FaDollarSign className="text-red-500" />
-                          <span className="text-sm text-gray-600 font-medium">
+                          <span className="text-sm text-base-content/70 font-medium">
                             Amount
                           </span>
                         </div>
@@ -234,7 +234,7 @@ const Funding = () => {
                     </div>
 
                     {/* Date */}
-                    <div className="flex items-center space-x-2 text-gray-600">
+                    <div className="flex items-center space-x-2 text-base-content/70">
                       <FaCalendarAlt className="text-red-500" />
                       <span className="text-sm">
                         {new Date(payment.createdAt).toLocaleDateString(
@@ -257,10 +257,10 @@ const Funding = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-white rounded-2xl shadow-xl p-6 border border-red-100"
+              className="bg-base-100 rounded-2xl shadow-xl p-6 border border-base-300"
             >
               <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-base-content/70">
                   Showing {currentPage * limit + 1} to{" "}
                   {Math.min((currentPage + 1) * limit, totalRequest)} of{" "}
                   {totalRequest} donations
@@ -273,11 +273,10 @@ const Funding = () => {
                     whileTap="tap"
                     disabled={currentPage === 0}
                     onClick={() => setCurrentPage(currentPage - 1)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      currentPage === 0
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentPage === 0
                         ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                         : "bg-red-500 text-white hover:bg-red-600 shadow-lg hover:shadow-xl"
-                    }`}
+                      }`}
                   >
                     <FaChevronLeft />
                     <span>Previous</span>
@@ -291,11 +290,10 @@ const Funding = () => {
                         whileHover="hover"
                         whileTap="tap"
                         onClick={() => setCurrentPage(i)}
-                        className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${
-                          i === currentPage
+                        className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${i === currentPage
                             ? "bg-linear-to-r from-red-500 to-red-600 text-white shadow-lg"
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
+                            : "bg-base-200 text-base-content hover:bg-base-300"
+                          }`}
                       >
                         {i + 1}
                       </motion.button>
@@ -308,11 +306,10 @@ const Funding = () => {
                     whileTap="tap"
                     disabled={currentPage === totalPage - 1}
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      currentPage === totalPage - 1
-                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${currentPage === totalPage - 1
+                        ? "bg-base-200 text-base-content/30 cursor-not-allowed"
                         : "bg-red-500 text-white hover:bg-red-600 shadow-lg hover:shadow-xl"
-                    }`}
+                      }`}
                   >
                     <span>Next</span>
                     <FaChevronRight />
@@ -325,7 +322,7 @@ const Funding = () => {
 
         {/* Modal - Keeping original functionality */}
         <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box bg-white shadow-2xl">
+          <div className="modal-box bg-base-100 shadow-2xl">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -337,8 +334,8 @@ const Funding = () => {
               </h3>
 
               <form onSubmit={handlePayment} className="space-y-4">
-                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                  <label className="label font-semibold text-gray-700">
+                <div className="bg-base-200 rounded-xl p-6 border border-base-300">
+                  <label className="label font-semibold text-base-content">
                     <span className="label-text flex items-center space-x-2">
                       <FaDollarSign className="text-red-500" />
                       <span>Donation Amount</span>
@@ -348,14 +345,14 @@ const Funding = () => {
                     <input
                       type="number"
                       name="amount"
-                      className="input input-bordered w-full pl-10 bg-white border-gray-300 focus:border-red-500 focus:ring-red-500"
+                      className="input input-bordered w-full pl-10 bg-base-100 border-base-300 focus:border-red-500 focus:ring-red-500 text-base-content"
                       placeholder="Enter amount in USD"
                       required
                       min="1"
                     />
-                    <FaDollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <FaDollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-base-content/50 mt-2">
                     Minimum donation amount is $1
                   </p>
                 </div>
@@ -374,7 +371,7 @@ const Funding = () => {
 
               <div className="modal-action mt-6">
                 <form method="dialog">
-                  <button className="btn btn-outline border-gray-300 hover:bg-gray-100">
+                  <button className="btn btn-outline border-base-300 hover:bg-base-200 text-base-content">
                     Cancel
                   </button>
                 </form>

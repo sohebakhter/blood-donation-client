@@ -84,7 +84,7 @@ const DonationRequestDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -96,7 +96,7 @@ const DonationRequestDetails = () => {
           <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
             Donation Request Details
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
             Review the complete details and help save a life by donating blood
           </p>
           <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
@@ -111,7 +111,7 @@ const DonationRequestDetails = () => {
           {/* Main Details Card */}
           <motion.div
             variants={cardVariants}
-            className="lg:col-span-2 bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100"
+            className="lg:col-span-2 bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-300"
           >
             {/* Card Header */}
             <div className="bg-linear-to-r from-red-500 to-red-600 p-6 text-white">
@@ -121,11 +121,10 @@ const DonationRequestDetails = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <div
-                  className={`w-3 h-3 rounded-full ${
-                    data?.donationStatus === "pending"
-                      ? "bg-yellow-400 animate-pulse"
-                      : "bg-green-400"
-                  }`}
+                  className={`w-3 h-3 rounded-full ${data?.donationStatus === "pending"
+                    ? "bg-yellow-400 animate-pulse"
+                    : "bg-green-400"
+                    }`}
                 ></div>
                 <span className="text-sm font-medium capitalize">
                   {data?.donationStatus}
@@ -137,26 +136,26 @@ const DonationRequestDetails = () => {
             <div className="p-6 space-y-6">
               {/* Requester & Recipient Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-base-200 rounded-xl p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <FaUser className="text-red-500 text-lg" />
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    <h3 className="text-lg font-semibold text-base-content">
                       Requester
                     </h3>
                   </div>
-                  <p className="text-gray-700 font-medium">
+                  <p className="text-base-content/90 font-medium">
                     {data?.requesterName}
                   </p>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-4">
+                <div className="bg-base-200 rounded-xl p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <FaUserMd className="text-red-500 text-lg" />
-                    <h3 className="text-lg font-semibold text-gray-800">
+                    <h3 className="text-lg font-semibold text-base-content">
                       Recipient
                     </h3>
                   </div>
-                  <p className="text-gray-700 font-medium">
+                  <p className="text-base-content/90 font-medium">
                     {data?.recipientName}
                   </p>
                 </div>
@@ -167,10 +166,10 @@ const DonationRequestDetails = () => {
                 <div className="flex items-start space-x-3 p-4 bg-blue-50 rounded-xl">
                   <FaMapMarkerAlt className="text-blue-500 mt-1 shrink-0" />
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       District
                     </p>
-                    <p className="text-gray-700 font-semibold">
+                    <p className="text-base-content font-semibold">
                       {data?.recipientDistrict}
                     </p>
                   </div>
@@ -179,8 +178,8 @@ const DonationRequestDetails = () => {
                 <div className="flex items-start space-x-3 p-4 bg-green-50 rounded-xl">
                   <FaMapMarkerAlt className="text-green-500 mt-1 shrink-0" />
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">Upazila</p>
-                    <p className="text-gray-700 font-semibold">
+                    <p className="text-sm text-base-content/60 font-medium">Upazila</p>
+                    <p className="text-base-content font-semibold">
                       {data?.recipientUpazila}
                     </p>
                   </div>
@@ -189,7 +188,7 @@ const DonationRequestDetails = () => {
                 <div className="flex items-start space-x-3 p-4 bg-red-50 rounded-xl">
                   <FaTint className="text-red-500 mt-1 shrink-0" />
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       Blood Group
                     </p>
                     <p className="text-red-600 font-bold text-lg">
@@ -204,10 +203,10 @@ const DonationRequestDetails = () => {
                 <div className="flex items-center space-x-3 p-4 bg-purple-50 rounded-xl">
                   <FaCalendarAlt className="text-purple-500" />
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       Donation Date
                     </p>
-                    <p className="text-gray-700 font-semibold">
+                    <p className="text-base-content font-semibold">
                       {data?.donationDate}
                     </p>
                   </div>
@@ -216,10 +215,10 @@ const DonationRequestDetails = () => {
                 <div className="flex items-center space-x-3 p-4 bg-indigo-50 rounded-xl">
                   <FaClock className="text-indigo-500" />
                   <div>
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       Donation Time
                     </p>
-                    <p className="text-gray-700 font-semibold">
+                    <p className="text-base-content font-semibold">
                       {data?.donationTime}
                     </p>
                   </div>
@@ -231,10 +230,10 @@ const DonationRequestDetails = () => {
                 <div className="flex items-start space-x-3 p-4 bg-teal-50 rounded-xl">
                   <FaHospital className="text-teal-500 mt-1 shrink-0" />
                   <div className="flex-1">
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       Hospital Name
                     </p>
-                    <p className="text-gray-700 font-semibold">
+                    <p className="text-base-content font-semibold">
                       {data?.hospitalName}
                     </p>
                   </div>
@@ -243,10 +242,10 @@ const DonationRequestDetails = () => {
                 <div className="flex items-start space-x-3 p-4 bg-orange-50 rounded-xl">
                   <FaMapMarkerAlt className="text-orange-500 mt-1 shrink-0" />
                   <div className="flex-1">
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-base-content/60 font-medium">
                       Full Address
                     </p>
-                    <p className="text-gray-700">{data?.fullAddress}</p>
+                    <p className="text-base-content">{data?.fullAddress}</p>
                   </div>
                 </div>
               </div>
@@ -257,10 +256,10 @@ const DonationRequestDetails = () => {
                   <div className="flex items-start space-x-3">
                     <FaComment className="text-yellow-500 mt-1 shrink-0" />
                     <div className="flex-1">
-                      <p className="text-sm text-gray-500 font-medium mb-2">
+                      <p className="text-sm text-base-content/60 font-medium mb-2">
                         Request Message
                       </p>
-                      <p className="text-gray-700 italic">
+                      <p className="text-base-content italic">
                         "{data.requestMessage}"
                       </p>
                     </div>
@@ -273,17 +272,16 @@ const DonationRequestDetails = () => {
           {/* Action Card */}
           <motion.div variants={cardVariants} className="space-y-6">
             {/* Status Card */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 border border-red-100">
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
+            <div className="bg-base-100 rounded-2xl shadow-xl p-6 border border-base-300">
+              <h3 className="text-xl font-bold text-base-content mb-4 flex items-center space-x-2">
                 <FaExclamationTriangle className="text-yellow-500" />
                 <span>Status</span>
               </h3>
               <div
-                className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full ${
-                  data?.donationStatus === "pending"
-                    ? "bg-yellow-100 text-yellow-800"
-                    : "bg-green-100 text-green-800"
-                }`}
+                className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full ${data?.donationStatus === "pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : "bg-green-100 text-green-800"
+                  }`}
               >
                 {data?.donationStatus === "pending" ? (
                   <FaExclamationTriangle className="animate-pulse" />
@@ -299,13 +297,13 @@ const DonationRequestDetails = () => {
             {/* Donate Button Card */}
             <motion.div
               variants={cardVariants}
-              className="bg-white rounded-2xl shadow-xl p-6 border border-red-100"
+              className="bg-base-100 rounded-2xl shadow-xl p-6 border border-base-300"
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-xl font-bold text-base-content mb-4 flex items-center space-x-2">
                 <FaHandHoldingHeart className="text-red-500" />
                 <span>Take Action</span>
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-base-content/70 mb-6">
                 Ready to save a life? Confirm your donation and help this person
                 in need.
               </p>

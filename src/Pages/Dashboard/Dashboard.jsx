@@ -182,7 +182,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Welcome Header */}
         <motion.div
@@ -191,13 +191,13 @@ const Dashboard = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold text-base-content mb-2">
             Welcome back,
             <span className="bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent ml-2">
               {userData?.displayName}
             </span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
             Manage your donation requests and track your impact in saving lives
           </p>
           <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
@@ -218,10 +218,10 @@ const Dashboard = () => {
                 className="text-center py-16"
               >
                 <div className="text-6xl mb-4">🩸</div>
-                <h3 className="text-2xl font-semibold text-gray-700 mb-2">
+                <h3 className="text-2xl font-semibold text-base-content/70 mb-2">
                   No Donation Requests
                 </h3>
-                <p className="text-gray-500 mb-6">
+                <p className="text-base-content/50 mb-6">
                   You haven't created any donation requests yet.
                 </p>
                 <motion.button
@@ -246,7 +246,7 @@ const Dashboard = () => {
                         scale: 1.02,
                         boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
                       }}
-                      className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100"
+                      className="bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-300"
                     >
                       {/* Card Header */}
                       <div className="bg-linear-to-r from-red-500 to-red-600 p-4 text-white">
@@ -280,17 +280,17 @@ const Dashboard = () => {
                             <FaUser className="text-white text-sm" />
                           </div>
                           <div>
-                            <p className="text-sm text-gray-500 font-medium">
+                            <p className="text-sm text-base-content/60 font-medium">
                               Recipient
                             </p>
-                            <p className="text-gray-800 font-semibold">
+                            <p className="text-base-content font-semibold">
                               {request.recipientName}
                             </p>
                           </div>
                         </div>
 
                         {/* Location */}
-                        <div className="flex items-center space-x-2 text-gray-600">
+                        <div className="flex items-center space-x-2 text-base-content/70">
                           <FaMapMarkerAlt className="text-red-500" />
                           <span className="text-sm">
                             {request.recipientDistrict},{" "}
@@ -303,7 +303,7 @@ const Dashboard = () => {
                           <div className="flex items-center space-x-2">
                             <FaCalendarAlt className="text-red-500" />
                             <div>
-                              <p className="text-xs text-gray-500">Date</p>
+                              <p className="text-xs text-base-content/50">Date</p>
                               <p className="text-sm font-semibold">
                                 {request.donationDate}
                               </p>
@@ -312,7 +312,7 @@ const Dashboard = () => {
                           <div className="flex items-center space-x-2">
                             <FaClock className="text-red-500" />
                             <div>
-                              <p className="text-xs text-gray-500">Time</p>
+                              <p className="text-xs text-base-content/50">Time</p>
                               <p className="text-sm font-semibold">
                                 {request.donationTime}
                               </p>
@@ -321,7 +321,7 @@ const Dashboard = () => {
                         </div>
 
                         {/* Blood Group */}
-                        <div className="bg-red-50 rounded-xl p-3">
+                        <div className="bg-red-50/10 rounded-xl p-3">
                           <div className="flex items-center space-x-2">
                             <FaTint className="text-red-500" />
                             <span className="text-red-600 font-bold">
@@ -332,17 +332,17 @@ const Dashboard = () => {
 
                         {/* Requester Info (only for inprogress) */}
                         {request.donationStatus === "inprogress" && (
-                          <div className="bg-blue-50 rounded-xl p-3">
+                          <div className="bg-blue-50/10 rounded-xl p-3">
                             <div className="flex items-center space-x-2 mb-2">
                               <FaUser className="text-blue-500" />
                               <span className="text-sm font-medium text-blue-700">
                                 Requester
                               </span>
                             </div>
-                            <p className="text-sm text-gray-700">
+                            <p className="text-sm text-base-content/80">
                               {request.requesterName}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-base-content/50">
                               {request.requesterEmail}
                             </p>
                           </div>
@@ -354,7 +354,7 @@ const Dashboard = () => {
                             variants={buttonVariants}
                             whileHover="hover"
                             whileTap="tap"
-                            className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
+                            className="w-full bg-base-200 hover:bg-base-300 text-base-content font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
                           >
                             <FaEye />
                             <Link
@@ -460,7 +460,7 @@ const Dashboard = () => {
                   scale: 1.05,
                   boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
                 }}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+                className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 text-center"
               >
                 <div className="bg-linear-to-r from-red-400 to-red-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
                   <FaUsers className="text-white text-3xl" />
@@ -468,10 +468,10 @@ const Dashboard = () => {
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-red-600 mb-2">
                   {donors.length}
                 </h2>
-                <h3 className="text-lg font-semibold text-gray-700">
+                <h3 className="text-lg font-semibold text-base-content/70">
                   Total Donor Users
                 </h3>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-base-content/50 mt-2">
                   Active blood donors in our community
                 </p>
               </motion.div>
@@ -483,7 +483,7 @@ const Dashboard = () => {
                   scale: 1.05,
                   boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
                 }}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+                className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 text-center"
               >
                 <div className="bg-linear-to-r from-green-400 to-green-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
                   <FaDollarSign className="text-white text-3xl" />
@@ -491,10 +491,10 @@ const Dashboard = () => {
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-green-600 mb-2">
                   ${totalAmount}
                 </h2>
-                <h3 className="text-lg font-semibold text-gray-700">
+                <h3 className="text-lg font-semibold text-base-content/70">
                   Total Funding Raised
                 </h3>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-base-content/50 mt-2">
                   Contributions supporting our mission
                 </p>
               </motion.div>
@@ -506,7 +506,7 @@ const Dashboard = () => {
                   scale: 1.05,
                   boxShadow: "0 20px 40px rgba(239, 68, 68, 0.15)",
                 }}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 text-center"
+                className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 text-center"
               >
                 <div className="bg-linear-to-r from-blue-400 to-blue-500 p-4 flex items-center justify-center w-20 h-20 rounded-full mx-auto mb-4">
                   <FaClipboardList className="text-white text-3xl" />
@@ -514,10 +514,10 @@ const Dashboard = () => {
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-600 mb-2">
                   {totalReq.length}
                 </h2>
-                <h3 className="text-lg font-semibold text-gray-700">
+                <h3 className="text-lg font-semibold text-base-content/70">
                   Blood Donation Requests
                 </h3>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-base-content/50 mt-2">
                   Active requests waiting for donors
                 </p>
               </motion.div>
@@ -533,9 +533,9 @@ const Dashboard = () => {
               {/* Donation Status Chart */}
               <motion.div
                 variants={cardVariants}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 flex flex-col items-center"
+                className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 flex flex-col items-center"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Donation Status Distribution</h3>
+                <h3 className="text-xl font-bold text-base-content mb-6">Donation Status Distribution</h3>
                 <div className="w-full h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -563,9 +563,9 @@ const Dashboard = () => {
               {/* Blood Group Distribution Chart */}
               <motion.div
                 variants={cardVariants}
-                className="bg-white rounded-2xl shadow-xl p-8 border border-red-100 flex flex-col items-center"
+                className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 flex flex-col items-center"
               >
-                <h3 className="text-xl font-bold text-gray-800 mb-6">Donor Blood Group Distribution</h3>
+                <h3 className="text-xl font-bold text-base-content mb-6">Donor Blood Group Distribution</h3>
                 <div className="w-full h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart

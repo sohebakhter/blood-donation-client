@@ -98,7 +98,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -110,7 +110,7 @@ const ProfilePage = () => {
           <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
             My Profile
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
             Manage your personal information and keep your profile up to date
           </p>
           <div className="w-24 h-1 bg-linear-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
@@ -124,10 +124,10 @@ const ProfilePage = () => {
         >
           {/* Profile Avatar Card */}
           <motion.div variants={cardVariants} className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-xl p-6 border border-blue-100 text-center">
+            <div className="bg-base-100 rounded-2xl shadow-xl p-6 border border-base-300 text-center">
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto rounded-full bg-linear-to-r from-blue-500 to-purple-500 p-1">
-                  <div className="w-full h-full rounded-full bg-white p-1">
+                  <div className="w-full h-full rounded-full bg-base-100 p-1">
                     {userData?.photoURL ? (
                       <img
                         src={userData.photoURL}
@@ -135,21 +135,21 @@ const ProfilePage = () => {
                         className="w-full h-full rounded-full object-cover border-2 border-gray-200"
                       />
                     ) : (
-                      <div className="w-full h-full rounded-full bg-gray-100 flex items-center justify-center">
-                        <FaUserCircle className="text-4xl text-gray-400" />
+                      <div className="w-full h-full rounded-full bg-base-200 flex items-center justify-center">
+                        <FaUserCircle className="text-4xl text-base-content/40" />
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="absolute bottom-0 right-1/2 transform translate-x-16 bg-white rounded-full p-2 shadow-lg border border-gray-200">
-                  <FaCamera className="text-gray-600 text-sm" />
+                <div className="absolute bottom-0 right-1/2 transform translate-x-16 bg-base-100 rounded-full p-2 shadow-lg border border-base-300">
+                  <FaCamera className="text-base-content/60 text-sm" />
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
+              <h3 className="text-xl font-bold text-base-content mb-2">
                 {userData?.displayName || "User"}
               </h3>
-              <p className="text-gray-600 text-sm mb-4">Blood Donor</p>
+              <p className="text-base-content/60 text-sm mb-4">Blood Donor</p>
 
               <div className="space-y-3">
                 <div className="flex items-center justify-center space-x-2 text-sm">
@@ -159,7 +159,7 @@ const ProfilePage = () => {
                   </span>
                 </div>
 
-                <div className="flex items-center justify-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center justify-center space-x-2 text-sm text-base-content/60">
                   <FaMapMarkerAlt className="text-blue-500" />
                   <span>
                     {userData?.district && userData?.upazila
@@ -173,7 +173,7 @@ const ProfilePage = () => {
 
           {/* Profile Form Card */}
           <motion.div variants={cardVariants} className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
+            <div className="bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-300">
               {/* Card Header */}
               <div className="bg-linear-to-r from-blue-500 to-purple-500 p-6 text-white">
                 <div className="flex items-center justify-between">
@@ -214,7 +214,7 @@ const ProfilePage = () => {
                   {/* Name and Email Row */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                      <label className="label font-semibold text-base-content/70 flex items-center space-x-2">
                         <FaUser className="text-blue-500" />
                         <span>Full Name</span>
                       </label>
@@ -223,17 +223,16 @@ const ProfilePage = () => {
                         {...register("displayName")}
                         defaultValue={userData.displayName}
                         disabled={!editable}
-                        className={`input input-bordered w-full transition-all duration-300 ${
-                          editable
-                            ? "border-blue-300 focus:border-blue-500 focus:ring-blue-500 bg-white"
-                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
-                        }`}
+                        className={`input input-bordered w-full transition-all duration-300 ${editable
+                            ? "border-blue-300 focus:border-blue-500 focus:ring-blue-500 bg-base-100"
+                            : "bg-base-200 border-base-300 cursor-not-allowed"
+                          }`}
                         placeholder="Enter your full name"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                      <label className="label font-semibold text-base-content/70 flex items-center space-x-2">
                         <FaEnvelope className="text-purple-500" />
                         <span>Email Address</span>
                       </label>
@@ -241,7 +240,7 @@ const ProfilePage = () => {
                         type="email"
                         value={userData?.email || ""}
                         disabled
-                        className="input input-bordered w-full bg-gray-50 border-gray-200 cursor-not-allowed"
+                        className="input input-bordered w-full bg-base-200 border-base-300 cursor-not-allowed"
                         placeholder="Email address"
                       />
                       <p className="text-xs text-gray-500">
@@ -253,7 +252,7 @@ const ProfilePage = () => {
                   {/* Blood Group and District Row */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                      <label className="label font-semibold text-base-content/70 flex items-center space-x-2">
                         <FaTint className="text-red-500" />
                         <span>Blood Group</span>
                       </label>
@@ -261,11 +260,10 @@ const ProfilePage = () => {
                         {...register("bloodGroup")}
                         defaultValue={userData.bloodGroup}
                         disabled={!editable}
-                        className={`select select-bordered w-full transition-all duration-300 ${
-                          editable
-                            ? "border-red-300 focus:border-red-500 focus:ring-red-500 bg-white"
-                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
-                        }`}
+                        className={`select select-bordered w-full transition-all duration-300 ${editable
+                            ? "border-red-300 focus:border-red-500 focus:ring-red-500 bg-base-100"
+                            : "bg-base-200 border-base-300 cursor-not-allowed"
+                          }`}
                       >
                         {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
                           (grp) => (
@@ -278,7 +276,7 @@ const ProfilePage = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                      <label className="label font-semibold text-base-content/70 flex items-center space-x-2">
                         <FaMapPin className="text-green-500" />
                         <span>District</span>
                       </label>
@@ -287,11 +285,10 @@ const ProfilePage = () => {
                         {...register("district")}
                         defaultValue={userData.district}
                         disabled={!editable}
-                        className={`input input-bordered w-full transition-all duration-300 ${
-                          editable
-                            ? "border-green-300 focus:border-green-500 focus:ring-green-500 bg-white"
-                            : "bg-gray-50 border-gray-200 cursor-not-allowed"
-                        }`}
+                        className={`input input-bordered w-full transition-all duration-300 ${editable
+                            ? "border-green-300 focus:border-green-500 focus:ring-green-500 bg-base-100"
+                            : "bg-base-200 border-base-300 cursor-not-allowed"
+                          }`}
                         placeholder="Enter your district"
                       />
                     </div>
@@ -299,7 +296,7 @@ const ProfilePage = () => {
 
                   {/* Upazila Row */}
                   <div className="space-y-2">
-                    <label className="label font-semibold text-gray-700 flex items-center space-x-2">
+                    <label className="label font-semibold text-base-content/70 flex items-center space-x-2">
                       <FaMapMarkerAlt className="text-orange-500" />
                       <span>Upazila</span>
                     </label>
@@ -308,11 +305,10 @@ const ProfilePage = () => {
                       {...register("upazila")}
                       defaultValue={userData.upazila}
                       disabled={!editable}
-                      className={`input input-bordered w-full transition-all duration-300 ${
-                        editable
-                          ? "border-orange-300 focus:border-orange-500 focus:ring-orange-500 bg-white"
-                          : "bg-gray-50 border-gray-200 cursor-not-allowed"
-                      }`}
+                      className={`input input-bordered w-full transition-all duration-300 ${editable
+                          ? "border-orange-300 focus:border-orange-500 focus:ring-orange-500 bg-base-100"
+                          : "bg-base-200 border-base-300 cursor-not-allowed"
+                        }`}
                       placeholder="Enter your upazila"
                     />
                   </div>

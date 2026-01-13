@@ -20,7 +20,7 @@ const Featured = () => {
 
   return (
     <div className="py-16 bg-base-100">
-      <h2 className="text-5xl text-gray-600 font-bold text-center mb-10">
+      <h2 className="text-5xl text-base-content font-bold text-center mb-10">
         Why Donate Through Us?
       </h2>
 
@@ -28,16 +28,16 @@ const Featured = () => {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="card bg-gray-600 text-white shadow-md hover:shadow-xl transition-all"
+            className="card bg-base-200 text-base-content shadow-md hover:shadow-xl transition-all border border-base-300"
           >
-            <div className="card-body items-center text-center text-white">
+            <div className="card-body items-center text-center">
               <img src={logo} alt="" className="rounded-2xl" />
 
-              <h3 className="text-2xl font-semibold mt-3 text-white">
+              <h3 className="text-2xl font-semibold mt-3 text-base-content">
                 {feature.title}
               </h3>
 
-              <p className=" mt-2 text-white">
+              <p className=" mt-2 text-base-content/80">
                 {feature.description}
               </p>
             </div>

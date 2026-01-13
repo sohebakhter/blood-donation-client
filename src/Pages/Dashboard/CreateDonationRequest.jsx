@@ -117,7 +117,7 @@ const CreateDonationRequest = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-100 py-8 px-4"
+      className="min-h-screen bg-base-200 py-8 px-4"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -133,7 +133,7 @@ const CreateDonationRequest = () => {
           <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
             Create Donation Request
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
             Fill out the form below to create a new blood donation request and
             help save lives
           </p>
@@ -143,7 +143,7 @@ const CreateDonationRequest = () => {
         {/* Form Card */}
         <motion.div
           variants={cardVariants}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden border border-red-100"
+          className="bg-base-100 rounded-2xl shadow-xl overflow-hidden border border-base-300"
         >
           {/* Card Header */}
           <div className="bg-linear-to-r from-red-500 to-red-600 p-6 text-white">
@@ -161,15 +161,15 @@ const CreateDonationRequest = () => {
             {/* Requester Information */}
             <motion.div
               variants={cardVariants}
-              className="bg-gray-50 rounded-xl p-6 border border-gray-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaUser className="text-red-500" />
                 <span>Requester Information</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700 flex items-center space-x-2">
+                  <label className="font-medium mb-2 text-base-content/70 flex items-center space-x-2">
                     <FaUser className="text-red-500 text-sm" />
                     <span>Requester Name</span>
                   </label>
@@ -177,11 +177,11 @@ const CreateDonationRequest = () => {
                     type="text"
                     value={user?.displayName}
                     readOnly
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700 flex items-center space-x-2">
+                  <label className="font-medium mb-2 text-base-content/70 flex items-center space-x-2">
                     <FaEnvelope className="text-red-500 text-sm" />
                     <span>Requester Email</span>
                   </label>
@@ -189,7 +189,7 @@ const CreateDonationRequest = () => {
                     type="email"
                     value={user?.email}
                     readOnly
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
                   />
                 </div>
               </div>
@@ -198,21 +198,21 @@ const CreateDonationRequest = () => {
             {/* Recipient Information */}
             <motion.div
               variants={cardVariants}
-              className="bg-blue-50 rounded-xl p-6 border border-blue-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaTint className="text-blue-500" />
                 <span>Recipient Information</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700">
+                  <label className="font-medium mb-2 text-base-content/70">
                     Recipient Name
                   </label>
                   <input
                     type="text"
                     {...register("recipientName", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     placeholder="Enter recipient name"
                   />
                   {errors.recipientName && (
@@ -222,13 +222,13 @@ const CreateDonationRequest = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700 flex items-center space-x-2">
+                  <label className="font-medium mb-2 text-base-content/70 flex items-center space-x-2">
                     <FaTint className="text-red-500 text-sm" />
                     <span>Blood Group</span>
                   </label>
                   <select
                     {...register("bloodGroup", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all"
                   >
                     <option value="">Select Blood Group</option>
                     {bloodGroups.map((bg, i) => (
@@ -249,20 +249,20 @@ const CreateDonationRequest = () => {
             {/* Location Information */}
             <motion.div
               variants={cardVariants}
-              className="bg-green-50 rounded-xl p-6 border border-green-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaMapMarkerAlt className="text-green-500" />
                 <span>Location Details</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700">
+                  <label className="font-medium mb-2 text-base-content/70">
                     District
                   </label>
                   <select
                     {...register("recipientDistrict", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                   >
                     <option value="pick a District">Select District</option>
                     {realData.map((d, i) => (
@@ -278,12 +278,12 @@ const CreateDonationRequest = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700">
+                  <label className="font-medium mb-2 text-base-content/70">
                     Upazila
                   </label>
                   <select
                     {...register("recipientUpazila", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                   >
                     <option value="pick a Upazila">Select Upazila</option>
                     {upazilaByDistrictId(selectedDistrict).map((u, i) => (
@@ -304,22 +304,22 @@ const CreateDonationRequest = () => {
             {/* Schedule Information */}
             <motion.div
               variants={cardVariants}
-              className="bg-purple-50 rounded-xl p-6 border border-purple-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaCalendarAlt className="text-purple-500" />
                 <span>Donation Schedule</span>
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700 flex items-center space-x-2">
+                  <label className="font-medium mb-2 text-base-content/70 flex items-center space-x-2">
                     <FaCalendarAlt className="text-purple-500 text-sm" />
                     <span>Donation Date</span>
                   </label>
                   <input
                     type="date"
                     {...register("donationDate", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
                   />
                   {errors.donationDate && (
                     <p className="text-red-500 text-sm mt-1">
@@ -328,14 +328,14 @@ const CreateDonationRequest = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700 flex items-center space-x-2">
+                  <label className="font-medium mb-2 text-base-content/70 flex items-center space-x-2">
                     <FaClock className="text-purple-500 text-sm" />
                     <span>Donation Time</span>
                   </label>
                   <input
                     type="time"
                     {...register("donationTime", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
                   />
                   {errors.donationTime && (
                     <p className="text-red-500 text-sm mt-1">
@@ -349,21 +349,21 @@ const CreateDonationRequest = () => {
             {/* Hospital Information */}
             <motion.div
               variants={cardVariants}
-              className="bg-teal-50 rounded-xl p-6 border border-teal-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaHospital className="text-teal-500" />
                 <span>Hospital Details</span>
               </h3>
               <div className="space-y-4">
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700">
+                  <label className="font-medium mb-2 text-base-content/70">
                     Hospital Name
                   </label>
                   <input
                     type="text"
                     {...register("hospitalName", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
                     placeholder="Enter hospital name"
                   />
                   {errors.hospitalName && (
@@ -373,13 +373,13 @@ const CreateDonationRequest = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-medium mb-2 text-gray-700">
+                  <label className="font-medium mb-2 text-base-content/70">
                     Full Address
                   </label>
                   <input
                     type="text"
                     {...register("fullAddress", { required: true })}
-                    className="p-3 rounded-lg bg-white border border-gray-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
+                    className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-200 transition-all"
                     placeholder="Enter complete address"
                   />
                   {errors.fullAddress && (
@@ -394,20 +394,20 @@ const CreateDonationRequest = () => {
             {/* Request Message */}
             <motion.div
               variants={cardVariants}
-              className="bg-yellow-50 rounded-xl p-6 border border-yellow-200"
+              className="bg-base-200 rounded-xl p-6 border border-base-300"
             >
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h3 className="text-lg font-semibold text-base-content mb-4 flex items-center space-x-2">
                 <FaComment className="text-yellow-500" />
                 <span>Request Message</span>
               </h3>
               <div className="flex flex-col">
-                <label className="font-medium mb-2 text-gray-700">
+                <label className="font-medium mb-2 text-base-content/70">
                   Why is blood needed?
                 </label>
                 <textarea
                   {...register("requestMessage", { required: true })}
                   rows="4"
-                  className="p-3 rounded-lg bg-white border border-gray-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all resize-none"
+                  className="p-3 rounded-lg bg-base-100 border border-base-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 transition-all resize-none"
                   placeholder="Please provide details about why blood donation is needed..."
                 />
                 {errors.requestMessage && (

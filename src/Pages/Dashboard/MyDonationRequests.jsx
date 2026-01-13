@@ -27,8 +27,7 @@ const MyDonationRequests = () => {
     queryKey: ["myDonationRequests", user?.email, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/my-donation-requests?email=${user?.email}&limit=${limit}&skip=${
-          currentPage * limit
+        `/my-donation-requests?email=${user?.email}&limit=${limit}&skip=${currentPage * limit
         }`
       );
 
@@ -163,7 +162,7 @@ const MyDonationRequests = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-100 p-6"
+      className="min-h-screen bg-base-200 p-6"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -176,10 +175,10 @@ const MyDonationRequests = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-5xl font-bold text-red-800 mb-2">
+          <h2 className="text-5xl font-bold text-red-600 mb-2">
             My Donation Requests
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-base-content/70 text-lg">
             Manage and track your blood donation requests
           </p>
         </motion.div>
@@ -190,47 +189,47 @@ const MyDonationRequests = () => {
           variants={containerVariants}
         >
           <motion.div
-            className="bg-white rounded-lg shadow-md p-4 text-center border-l-4 border-red-500"
+            className="bg-base-100 rounded-lg shadow-md p-4 text-center border-l-4 border-red-500"
             variants={statVariants}
           >
             <div className="text-2xl font-bold text-red-600">{stats.total}</div>
-            <div className="text-sm text-gray-600">Total</div>
+            <div className="text-sm text-base-content/60">Total</div>
           </motion.div>
           <motion.div
-            className="bg-white rounded-lg shadow-md p-4 text-center border-l-4 border-yellow-500"
+            className="bg-base-100 rounded-lg shadow-md p-4 text-center border-l-4 border-yellow-500"
             variants={statVariants}
           >
             <div className="text-2xl font-bold text-yellow-600">
               {stats.pending}
             </div>
-            <div className="text-sm text-gray-600">Pending</div>
+            <div className="text-sm text-base-content/60">Pending</div>
           </motion.div>
           <motion.div
-            className="bg-white rounded-lg shadow-md p-4 text-center border-l-4 border-blue-500"
+            className="bg-base-100 rounded-lg shadow-md p-4 text-center border-l-4 border-blue-500"
             variants={statVariants}
           >
             <div className="text-2xl font-bold text-blue-600">
               {stats.inprogress}
             </div>
-            <div className="text-sm text-gray-600">In Progress</div>
+            <div className="text-sm text-base-content/60">In Progress</div>
           </motion.div>
           <motion.div
-            className="bg-white rounded-lg shadow-md p-4 text-center border-l-4 border-green-500"
+            className="bg-base-100 rounded-lg shadow-md p-4 text-center border-l-4 border-green-500"
             variants={statVariants}
           >
             <div className="text-2xl font-bold text-green-600">
               {stats.done}
             </div>
-            <div className="text-sm text-gray-600">Done</div>
+            <div className="text-sm text-base-content/60">Done</div>
           </motion.div>
           <motion.div
-            className="bg-white rounded-lg shadow-md p-4 text-center border-l-4 border-gray-500"
+            className="bg-base-100 rounded-lg shadow-md p-4 text-center border-l-4 border-base-content/50"
             variants={statVariants}
           >
-            <div className="text-2xl font-bold text-gray-600">
+            <div className="text-2xl font-bold text-base-content/70">
               {stats.cancelled}
             </div>
-            <div className="text-sm text-gray-600">Cancelled</div>
+            <div className="text-sm text-base-content/60">Cancelled</div>
           </motion.div>
         </motion.div>
 
@@ -242,7 +241,7 @@ const MyDonationRequests = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <select
-            className="select select-bordered bg-white border-red-300 text-red-700 focus:border-red-500 focus:ring-red-500 px-6 py-2 text-lg"
+            className="select select-bordered bg-base-100 border-red-300 text-red-500 focus:border-red-500 focus:ring-red-500 px-6 py-2 text-lg"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
@@ -262,15 +261,14 @@ const MyDonationRequests = () => {
           {filteredRequests.map((r, i) => (
             <motion.div
               key={r._id}
-              className={`bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden relative ${
-                r.donationStatus === "inprogress"
+              className={`bg-base-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden relative ${r.donationStatus === "inprogress"
                   ? "border-l-8 border-blue-500"
                   : r.donationStatus === "done"
-                  ? "border-l-8 border-green-500"
-                  : r.donationStatus === "cancelled"
-                  ? "border-l-8 border-gray-500"
-                  : "border-l-8 border-yellow-500"
-              }`}
+                    ? "border-l-8 border-green-500"
+                    : r.donationStatus === "cancelled"
+                      ? "border-l-8 border-base-content/50"
+                      : "border-l-8 border-yellow-500"
+                }`}
               variants={cardVariants}
               whileHover={{ y: -5 }}
             >
@@ -281,53 +279,52 @@ const MyDonationRequests = () => {
                       Request #{i + 1}
                     </h3>
                     <span
-                      className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                        r.donationStatus === "inprogress"
+                      className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${r.donationStatus === "inprogress"
                           ? "bg-blue-100 text-blue-800"
                           : r.donationStatus === "done"
-                          ? "bg-green-100 text-green-800"
-                          : r.donationStatus === "cancelled"
-                          ? "bg-gray-100 text-gray-800"
-                          : "bg-yellow-100 text-yellow-800"
-                      }`}
+                            ? "bg-green-100 text-green-800"
+                            : r.donationStatus === "cancelled"
+                              ? "bg-base-200 text-base-content/70"
+                              : "bg-yellow-100 text-yellow-800"
+                        }`}
                     >
                       {r.donationStatus}
                     </span>
                   </div>
                   <div className="text-right">
-                    <div className="text-red-600 font-bold text-lg">
+                    <div className="text-red-500 font-bold text-lg">
                       {r.bloodGroup}
                     </div>
-                    <div className="text-sm text-gray-500">Blood Type</div>
+                    <div className="text-sm text-base-content/60">Blood Type</div>
                   </div>
                 </div>
 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center">
-                    <span className="font-medium text-gray-600 w-24">
+                    <span className="font-medium text-base-content/70 w-24">
                       Requester:
                     </span>
-                    <span className="text-gray-800">{r.requesterName}</span>
+                    <span className="text-base-content/90">{r.requesterName}</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="font-medium text-gray-600 w-24">
+                    <span className="font-medium text-base-content/70 w-24">
                       Email:
                     </span>
-                    <span className="text-gray-800 text-sm">
+                    <span className="text-base-content/90 text-sm">
                       {r.requesterEmail}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <span className="font-medium text-gray-600 w-24">
+                    <span className="font-medium text-base-content/70 w-24">
                       Recipient:
                     </span>
-                    <span className="text-gray-800">{r.recipientName}</span>
+                    <span className="text-base-content/90">{r.recipientName}</span>
                   </div>
                   <div className="flex items-center">
-                    <span className="font-medium text-gray-600 w-24">
+                    <span className="font-medium text-base-content/70 w-24">
                       District:
                     </span>
-                    <span className="text-gray-800">{r.recipientDistrict}</span>
+                    <span className="text-base-content/90">{r.recipientDistrict}</span>
                   </div>
                 </div>
 
@@ -395,7 +392,7 @@ const MyDonationRequests = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="flex items-center gap-2 bg-white rounded-lg shadow-md p-2">
+            <div className="flex items-center gap-2 bg-base-100 rounded-lg shadow-md p-2">
               <motion.button
                 disabled={currentPage === 0}
                 onClick={() => setCurrentPage(currentPage - 1)}
@@ -413,13 +410,12 @@ const MyDonationRequests = () => {
                     typeof page === "number" && setCurrentPage(page - 1)
                   }
                   disabled={page === "..."}
-                  className={`btn btn-sm ${
-                    page === currentPage + 1
+                  className={`btn btn-sm ${page === currentPage + 1
                       ? "bg-red-600 text-white"
                       : page === "..."
-                      ? "bg-transparent text-gray-500 cursor-default"
-                      : "bg-red-100 text-red-700 hover:bg-red-200"
-                  } border-none`}
+                        ? "bg-transparent text-gray-500 cursor-default"
+                        : "bg-red-100 text-red-700 hover:bg-red-200"
+                    } border-none`}
                   whileHover={page !== "..." ? { scale: 1.05 } : {}}
                   whileTap={page !== "..." ? { scale: 0.95 } : {}}
                 >

@@ -97,7 +97,7 @@ const AllUsers = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-white p-6"
+      className="min-h-screen bg-base-200 p-6"
     >
       {role === "admin" && (
         <>
@@ -106,7 +106,7 @@ const AllUsers = () => {
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="bg-white rounded-2xl shadow-xl border border-blue-100 p-8 mb-8"
+            className="bg-base-100 rounded-2xl shadow-xl border border-base-300 p-8 mb-8"
           >
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
               <div>
@@ -122,7 +122,7 @@ const AllUsers = () => {
                   initial={{ x: -30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-gray-600 text-lg"
+                  className="text-base-content/70 text-lg"
                 >
                   Manage user accounts, roles, and access permissions
                 </motion.p>
@@ -135,11 +135,11 @@ const AllUsers = () => {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="w-full lg:w-auto"
               >
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-base-content/70 mb-2">
                   Filter by Status
                 </label>
                 <select
-                  className="select select-bordered select-lg w-full lg:w-64 shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="select select-bordered select-lg w-full lg:w-64 shadow-lg hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-base-100"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
@@ -156,7 +156,7 @@ const AllUsers = () => {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+            className="bg-base-100 rounded-2xl shadow-xl border border-base-300 overflow-hidden"
           >
             <div className="overflow-x-auto">
               <table className="table w-full">
@@ -185,13 +185,13 @@ const AllUsers = () => {
                         ease: "easeOut",
                       }}
                       whileHover={{
-                        backgroundColor: "#eff6ff",
+                        backgroundColor: "var(--color-base-200)",
                         scale: 1.01,
                         transition: { duration: 0.2 },
                       }}
-                      className="border-b border-gray-100 hover:shadow-md transition-all duration-200"
+                      className="border-b border-base-300 hover:shadow-md transition-all duration-200"
                     >
-                      <th className="text-base font-medium text-gray-800 py-4">
+                      <th className="text-base font-medium text-base-content py-4">
                         {i + 1}
                       </th>
                       <td className="py-4">
@@ -209,35 +209,33 @@ const AllUsers = () => {
                             </div>
                           </motion.div>
                           <div>
-                            <div className="font-bold text-gray-800 text-base">
+                            <div className="font-bold text-base-content text-base">
                               {u.displayName}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="text-base text-gray-600 py-4">
+                      <td className="text-base text-base-content/70 py-4">
                         {u.email}
                       </td>
                       <td className="py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            u.role === "admin"
+                          className={`px-3 py-1 rounded-full text-sm font-semibold ${u.role === "admin"
                               ? "bg-purple-100 text-purple-800 border border-purple-200"
                               : u.role === "volunteer"
-                              ? "bg-green-100 text-green-800 border border-green-200"
-                              : "bg-blue-100 text-blue-800 border border-blue-200"
-                          }`}
+                                ? "bg-green-100 text-green-800 border border-green-200"
+                                : "bg-blue-100 text-blue-800 border border-blue-200"
+                            }`}
                         >
                           {u.role.charAt(0).toUpperCase() + u.role.slice(1)}
                         </span>
                       </td>
                       <td className="py-4">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                            u.status === "active"
+                          className={`px-3 py-1 rounded-full text-sm font-semibold ${u.status === "active"
                               ? "bg-green-100 text-green-800 border border-green-200"
                               : "bg-red-100 text-red-800 border border-red-200"
-                          }`}
+                            }`}
                         >
                           {u.status.charAt(0).toUpperCase() + u.status.slice(1)}
                         </span>

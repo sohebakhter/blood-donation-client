@@ -4,6 +4,7 @@ import useAuth from "../Hooks/useAuth";
 import { toast } from "react-toastify";
 import logo from "../assets/logo.jpg";
 import { CgProfile } from "react-icons/cg";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
@@ -37,7 +38,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="shadow-sm sticky top-0 z-50 bg-white/30 backdrop-blur-md">
+    <div className="shadow-sm sticky top-0 z-50 bg-base-100/30 backdrop-blur-md">
       <div className="navbar max-w-7xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -76,7 +77,8 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex items-center gap-2">
+          <ThemeToggle />
           {user ? (
             <div className="dropdown dropdown-end">
               <div

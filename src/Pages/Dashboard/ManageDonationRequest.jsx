@@ -80,22 +80,22 @@ const ManageDonationRequest = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-red-50 py-12 px-4 flex items-center justify-center">
+    <div className="min-h-screen bg-base-200 py-12 px-4 flex items-center justify-center">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-2xl bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-red-100 p-8"
+        className="w-full max-w-2xl bg-base-100/80 backdrop-blur-md rounded-2xl shadow-xl border border-base-300 p-8"
       >
         <motion.h2
           variants={itemVariants}
-          className="text-3xl font-bold text-center text-gray-800 mb-2"
+          className="text-3xl font-bold text-center text-base-content mb-2"
         >
           Edit Donation Request
         </motion.h2>
         <motion.p
           variants={itemVariants}
-          className="text-center text-gray-500 mb-8"
+          className="text-center text-base-content/70 mb-8"
         >
           Update the details for this blood donation request
         </motion.p>
@@ -104,70 +104,70 @@ const ManageDonationRequest = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* recipientName */}
             <motion.div variants={itemVariants} className="flex flex-col space-y-2">
-              <label className="text-sm font-semibold text-gray-700 ml-1">
+              <label className="text-sm font-semibold text-base-content/70 ml-1">
                 Recipient Name
               </label>
               <input
                 type="text"
                 defaultValue={recipientName}
                 {...register("recipientName")}
-                className="input input-bordered w-full bg-white border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
+                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
                 placeholder="Enter recipient name"
               />
             </motion.div>
 
             {/* recipientDistrict */}
             <motion.div variants={itemVariants} className="flex flex-col space-y-2">
-              <label className="text-sm font-semibold text-gray-700 ml-1">
+              <label className="text-sm font-semibold text-base-content/70 ml-1">
                 Recipient District
               </label>
               <input
                 type="text"
                 defaultValue={recipientDistrict}
                 {...register("recipientDistrict")}
-                className="input input-bordered w-full bg-white border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
+                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
                 placeholder="Enter district"
               />
             </motion.div>
 
             {/* recipientUpazila */}
             <motion.div variants={itemVariants} className="flex flex-col space-y-2">
-              <label className="text-sm font-semibold text-gray-700 ml-1">
+              <label className="text-sm font-semibold text-base-content/70 ml-1">
                 Recipient Upazila
               </label>
               <input
                 type="text"
                 defaultValue={recipientUpazila}
                 {...register("recipientUpazila")}
-                className="input input-bordered w-full bg-white border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
+                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
                 placeholder="Enter upazila"
               />
             </motion.div>
 
             {/* hospitalName */}
             <motion.div variants={itemVariants} className="flex flex-col space-y-2">
-              <label className="text-sm font-semibold text-gray-700 ml-1">
+              <label className="text-sm font-semibold text-base-content/70 ml-1">
                 Hospital Name
               </label>
               <input
                 type="text"
                 defaultValue={hospitalName}
                 {...register("hospitalName")}
-                className="input input-bordered w-full bg-white border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
+                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
                 placeholder="Enter hospital name"
               />
             </motion.div>
 
             {/* fullAddress - full width */}
             <motion.div variants={itemVariants} className="flex flex-col space-y-2 md:col-span-2">
-              <label className="text-sm font-semibold text-gray-700 ml-1">
+              <label className="text-sm font-semibold text-base-content/70 ml-1">
                 Full Address
               </label>
               <input
                 type="text"
                 defaultValue={fullAddress}
                 {...register("fullAddress")}
-                className="input input-bordered w-full bg-white border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
+                className="input input-bordered w-full bg-base-100 border-base-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-300 rounded-xl"
                 placeholder="Enter full address"
               />
             </motion.div>

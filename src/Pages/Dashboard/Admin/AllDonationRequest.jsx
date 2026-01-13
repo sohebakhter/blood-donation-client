@@ -179,7 +179,7 @@ const AllDonationRequest = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="min-h-screen bg-gradient-to-br from-red-50 via-white to-pink-50"
+      className="min-h-screen bg-base-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header Section */}
@@ -195,7 +195,7 @@ const AllDonationRequest = () => {
                 All Donation Requests
               </motion.h1>
               <motion.p
-                className="text-gray-600 text-lg"
+                className="text-base-content/70 text-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -206,12 +206,12 @@ const AllDonationRequest = () => {
 
             {/* Filter Section */}
             <motion.div
-              className="flex items-center gap-3 bg-white rounded-xl shadow-lg p-4 border border-gray-100"
+              className="flex items-center gap-3 bg-base-100 rounded-xl shadow-lg p-4 border border-base-300"
               variants={itemVariants}
             >
               <FiFilter className="text-gray-500 w-5 h-5" />
               <select
-                className="bg-transparent border-none outline-none text-gray-700 font-medium cursor-pointer"
+                className="bg-transparent border-none outline-none text-base-content font-medium cursor-pointer"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
@@ -260,16 +260,16 @@ const AllDonationRequest = () => {
           ].map((stat) => (
             <motion.div
               key={stat.label}
-              className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300"
+              className="bg-base-100 rounded-xl shadow-lg p-6 border border-base-300 hover:shadow-xl transition-shadow duration-300"
               variants={cardVariants}
               whileHover={{ y: -5 }}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">
+                  <p className="text-base-content/60 text-sm font-medium">
                     {stat.label}
                   </p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">
+                  <p className="text-3xl font-bold text-base-content mt-1">
                     {stat.value}
                   </p>
                 </div>
@@ -284,7 +284,7 @@ const AllDonationRequest = () => {
         {/* Table Section */}
         <motion.div
           variants={itemVariants}
-          className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+          className="bg-base-100 rounded-2xl shadow-xl border border-base-300 overflow-hidden"
         >
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -320,29 +320,29 @@ const AllDonationRequest = () => {
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      className="hover:bg-gray-50 transition-colors duration-200"
-                      whileHover={{ backgroundColor: "#f9fafb" }}
+                      className="hover:bg-base-200 transition-colors duration-200"
+                      whileHover={{ backgroundColor: "var(--color-base-200)" }}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-base-content">
                         {i + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-base-content">
                           {r.requesterName}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-base-content/70">
                           {r.requesterEmail}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-base-content">
                           {r.recipientName}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-base-content/70">
                           {r.recipientDistrict}
                         </div>
                       </td>
@@ -443,10 +443,10 @@ const AllDonationRequest = () => {
               transition={{ duration: 0.5 }}
             >
               <FiUsers className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-base-content mb-2">
                 No donation requests found
               </h3>
-              <p className="text-gray-500">
+              <p className="text-base-content/60">
                 {status === "all"
                   ? "There are no donation requests at the moment."
                   : `No ${status} donation requests found.`}

@@ -10,7 +10,7 @@ const About = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="text-gray-800 min-h-screen bg-gradient-to-br from-slate-50 via-red-50 to-white"
+      className="text-base-content min-h-screen bg-base-200"
     >
       {/* Hero Intro */}
       <div className="max-w-7xl mx-auto px-4 pt-16 pb-12">
@@ -36,7 +36,7 @@ const About = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg sm:text-xl leading-8 mb-8 text-gray-600 max-w-4xl mx-auto"
+            className="text-lg sm:text-xl leading-8 mb-8 text-base-content/70 max-w-4xl mx-auto"
           >
             RedLove is a community-driven platform dedicated to connecting blood
             donors with people in urgent need. We also provide a trusted way for
@@ -47,7 +47,7 @@ const About = () => {
       </div>
 
       {/* Main Section */}
-      <div className="bg-gradient-to-b from-red-100 via-white to-red-50">
+      <div className="bg-base-100">
         <div className="max-w-7xl mx-auto px-4 py-20">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -92,7 +92,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                   viewport={{ once: true }}
-                  className="text-3xl sm:text-4xl font-bold text-gray-800"
+                  className="text-3xl sm:text-4xl font-bold text-base-content"
                 >
                   About RedLove
                 </motion.h1>
@@ -101,7 +101,7 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
-                  className="text-base sm:text-lg leading-8 text-gray-600"
+                  className="text-base sm:text-lg leading-8 text-base-content/70"
                 >
                   Red Love is a community-driven blood donation platform
                   dedicated to saving lives by connecting blood donors with
@@ -121,21 +121,21 @@ const About = () => {
                 viewport={{ once: true }}
                 className="grid grid-cols-2 gap-4"
               >
-                <div className="bg-white rounded-xl p-4 shadow-lg border border-red-100">
+                <div className="bg-base-100 rounded-xl p-4 shadow-lg border border-base-300">
                   <div className="flex items-center gap-3">
                     <FaUsers className="text-red-500 text-2xl" />
                     <div>
-                      <h3 className="font-bold text-gray-800">10K+</h3>
-                      <p className="text-sm text-gray-600">Lives Saved</p>
+                      <h3 className="font-bold text-base-content">10K+</h3>
+                      <p className="text-sm text-base-content/60">Lives Saved</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl p-4 shadow-lg border border-red-100">
+                <div className="bg-base-100 rounded-xl p-4 shadow-lg border border-base-300">
                   <div className="flex items-center gap-3">
                     <FaHeart className="text-red-500 text-2xl" />
                     <div>
-                      <h3 className="font-bold text-gray-800">5K+</h3>
-                      <p className="text-sm text-gray-600">Donors</p>
+                      <h3 className="font-bold text-base-content">5K+</h3>
+                      <p className="text-sm text-base-content/60">Donors</p>
                     </div>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ const About = () => {
       </div>
 
       {/* Features Section */}
-      <div className="bg-white py-20">
+      <div className="bg-base-200 py-20">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -155,10 +155,10 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-base-content mb-4">
               Why Choose <span className="text-red-600">RedLove</span>?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
               Discover the features that make RedLove the trusted choice for
               blood donation management
             </p>
@@ -172,7 +172,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl shadow-xl border border-red-100 hover:shadow-2xl transition-all duration-300"
+              className="bg-base-100 p-8 rounded-2xl shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -181,10 +181,10 @@ const About = () => {
               >
                 <IoMdLock className="text-white text-2xl" />
               </motion.div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
+              <h3 className="text-xl font-bold text-base-content mb-4">
                 All Data is Secured
               </h3>
-              <p className="text-gray-600 leading-7">
+              <p className="text-base-content/70 leading-7">
                 Your personal and donation-related information is safely stored
                 and protected. Red Love ensures data privacy and security so
                 users can focus on what truly matters—saving lives.
@@ -198,7 +198,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-xl border border-blue-100 hover:shadow-2xl transition-all duration-300"
+              className="bg-base-100 p-8 rounded-2xl shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -207,10 +207,10 @@ const About = () => {
               >
                 <FaAward className="text-white text-2xl" />
               </motion.div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
+              <h3 className="text-xl font-bold text-base-content mb-4">
                 Always Free for All
               </h3>
-              <p className="text-gray-600 leading-7">
+              <p className="text-base-content/70 leading-7">
                 Red Love is completely free to use for everyone. There are no
                 hidden charges or fees—our mission is to make blood donation
                 accessible, open, and available to all who want to help save
@@ -225,7 +225,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-xl border border-green-100 hover:shadow-2xl transition-all duration-300 md:col-span-2 lg:col-span-1"
+              className="bg-base-100 p-8 rounded-2xl shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300 md:col-span-2 lg:col-span-1"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -234,10 +234,10 @@ const About = () => {
               >
                 <FaSearch className="text-white text-2xl" />
               </motion.div>
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
+              <h3 className="text-xl font-bold text-base-content mb-4">
                 Advance Search Feature
               </h3>
-              <p className="text-gray-600 leading-7">
+              <p className="text-base-content/70 leading-7">
                 Easily find blood donors by selecting blood group, district, and
                 upazila. This advanced search helps you quickly connect with the
                 right donors during emergencies.
