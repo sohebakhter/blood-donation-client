@@ -1,20 +1,50 @@
 import { useNavigate } from "react-router";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/pagination";
+
 import bannerImg from "../assets/bloodBanner.jpg";
+import bannerImg2 from "../assets/blood-donation-3.png";
+import bannerImg3 from "../assets/bloodDonating.webp";
 import { LuLogIn } from "react-icons/lu";
 
 const Banner = () => {
   const navigate = useNavigate();
 
+  const slides = [bannerImg, bannerImg2, bannerImg3];
+
   return (
     <div className="hero min-h-[600px] relative">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${bannerImg}')` }}
-      ></div>
+      {/* Background Swiper */}
+      <div className="absolute inset-0">
+        <Swiper
+          modules={[Autoplay, Pagination, EffectFade]}
+          effect={"fade"}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          loop={true}
+          className="h-full w-full"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className="h-full w-full bg-cover bg-center"
+                style={{ backgroundImage: `url('${slide}')` }}
+              ></div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
       {/* Overlay */}
-      <div className="absolute inset-0 "></div>
+      <div className="absolute inset-0 bg-black/40 z-[1]"></div>
 
       {/* Content */}
       <div className="hero-content relative md:top-25 lg:top-50 z-10 w-full px-4">

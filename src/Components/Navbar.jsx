@@ -17,9 +17,14 @@ const Navbar = () => {
         <NavLink to="/donation-requests">DonationRequests</NavLink>
       </li>
       {user ? (
-        <li>
-          <NavLink to="/funding">Funding</NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink to="/search">Search</NavLink>
+          </li>
+          <li>
+            <NavLink to="/funding">Funding</NavLink>
+          </li>
+        </>
       ) : (
         <li>
           <NavLink to="/about">About</NavLink>
