@@ -32,7 +32,7 @@ const Login = () => {
   };
 
   const handleDemo = () => {
-    signInUser("mrdjworker@gmail.com", "123456Aa!")
+    signInUser("aa@bb.com", "123456Aa!")
       .then((result) => {
         console.log(result);
         toast.success("Login Successful");

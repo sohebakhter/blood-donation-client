@@ -42,6 +42,7 @@ import {
 
 const Dashboard = () => {
   const { role } = useRole();
+  console.log(role);
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -260,7 +261,10 @@ const Dashboard = () => {
                   whileTap="tap"
                   className="bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 inline-flex items-center space-x-2"
                 >
-                  <Link to="/dashboard/create-donation-request" className="flex items-center">
+                  <Link
+                    to="/dashboard/create-donation-request"
+                    className="flex items-center"
+                  >
                     <FaPlus />
                     <span>Create Your First Request</span>
                   </Link>
@@ -395,7 +399,7 @@ const Dashboard = () => {
                           >
                             <FaEye />
                             <Link
-                              to={`/dashboard/donation-request-details/${request._id}`}
+                              to={`/donation-request-details/${request._id}`}
                             >
                               <span>View Details</span>
                             </Link>
