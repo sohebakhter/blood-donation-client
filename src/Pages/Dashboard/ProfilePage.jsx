@@ -34,6 +34,7 @@ const ProfilePage = () => {
     },
     enabled: !!email,
   });
+  console.log(userData.photoURL, "------------");
 
   // React Hook Form
   const { register, handleSubmit, reset } = useForm();
@@ -128,7 +129,7 @@ const ProfilePage = () => {
               <div className="relative mb-6">
                 <div className="w-32 h-32 mx-auto rounded-full bg-linear-to-r from-blue-500 to-purple-500 p-1">
                   <div className="w-full h-full rounded-full bg-base-100 p-1">
-                    {userData?.photoURL ? (
+                    {userData ? (
                       <img
                         src={userData.photoURL}
                         alt="Profile"
@@ -223,10 +224,11 @@ const ProfilePage = () => {
                         {...register("displayName")}
                         defaultValue={userData.displayName}
                         disabled={!editable}
-                        className={`input input-bordered w-full transition-all duration-300 ${editable
+                        className={`input input-bordered w-full transition-all duration-300 ${
+                          editable
                             ? "border-blue-300 focus:border-blue-500 focus:ring-blue-500 bg-base-100"
                             : "bg-base-200 border-base-300 cursor-not-allowed"
-                          }`}
+                        }`}
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -260,17 +262,18 @@ const ProfilePage = () => {
                         {...register("bloodGroup")}
                         defaultValue={userData.bloodGroup}
                         disabled={!editable}
-                        className={`select select-bordered w-full transition-all duration-300 ${editable
+                        className={`select select-bordered w-full transition-all duration-300 ${
+                          editable
                             ? "border-red-300 focus:border-red-500 focus:ring-red-500 bg-base-100"
                             : "bg-base-200 border-base-300 cursor-not-allowed"
-                          }`}
+                        }`}
                       >
                         {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
                           (grp) => (
                             <option key={grp} value={grp}>
                               {grp}
                             </option>
-                          )
+                          ),
                         )}
                       </select>
                     </div>
@@ -285,10 +288,11 @@ const ProfilePage = () => {
                         {...register("district")}
                         defaultValue={userData.district}
                         disabled={!editable}
-                        className={`input input-bordered w-full transition-all duration-300 ${editable
+                        className={`input input-bordered w-full transition-all duration-300 ${
+                          editable
                             ? "border-green-300 focus:border-green-500 focus:ring-green-500 bg-base-100"
                             : "bg-base-200 border-base-300 cursor-not-allowed"
-                          }`}
+                        }`}
                         placeholder="Enter your district"
                       />
                     </div>
@@ -305,10 +309,11 @@ const ProfilePage = () => {
                       {...register("upazila")}
                       defaultValue={userData.upazila}
                       disabled={!editable}
-                      className={`input input-bordered w-full transition-all duration-300 ${editable
+                      className={`input input-bordered w-full transition-all duration-300 ${
+                        editable
                           ? "border-orange-300 focus:border-orange-500 focus:ring-orange-500 bg-base-100"
                           : "bg-base-200 border-base-300 cursor-not-allowed"
-                        }`}
+                      }`}
                       placeholder="Enter your upazila"
                     />
                   </div>

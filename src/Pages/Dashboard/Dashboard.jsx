@@ -9,7 +9,19 @@ import useRole from "../../Hooks/useRole";
 import { CircleDollarSign, HeartPulse, Syringe } from "lucide-react";
 import Loading from "../../Components/Loading";
 import { motion } from "framer-motion";
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, Legend, CartesianGrid } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip as RechartsTooltip,
+  Legend,
+  CartesianGrid,
+} from "recharts";
 import {
   FaUser,
   FaMapMarkerAlt,
@@ -126,28 +138,46 @@ const Dashboard = () => {
   const totalAmount = payments.reduce((sum, i) => sum + i.amount, 0);
 
   const hasInProgress = requests?.some(
-    (r) => r.donationStatus === "inprogress"
+    (r) => r.donationStatus === "inprogress",
   );
 
   // Chart Data Preparation
   const statusStats = [
-    { name: 'Pending', value: totalReq.filter(r => r.donationStatus === 'pending').length, color: '#FACC15' },
-    { name: 'In Progress', value: totalReq.filter(r => r.donationStatus === 'inprogress').length, color: '#3B82F6' },
-    { name: 'Done', value: totalReq.filter(r => r.donationStatus === 'done').length, color: '#22C55E' },
-    { name: 'Cancelled', value: totalReq.filter(r => r.donationStatus === 'cancelled').length, color: '#9CA3AF' }
-  ].filter(item => item.value > 0);
+    {
+      name: "Pending",
+      value: totalReq.filter((r) => r.donationStatus === "pending").length,
+      color: "#FACC15",
+    },
+    {
+      name: "In Progress",
+      value: totalReq.filter((r) => r.donationStatus === "inprogress").length,
+      color: "#3B82F6",
+    },
+    {
+      name: "Done",
+      value: totalReq.filter((r) => r.donationStatus === "done").length,
+      color: "#22C55E",
+    },
+    {
+      name: "Cancelled",
+      value: totalReq.filter((r) => r.donationStatus === "cancelled").length,
+      color: "#9CA3AF",
+    },
+  ].filter((item) => item.value > 0);
 
-  const bloodGroupStats = donors.reduce((acc, donor) => {
-    const group = donor.bloodGroup;
-    if (!group) return acc;
-    const existing = acc.find(item => item.name === group);
-    if (existing) {
-      existing.value += 1;
-    } else {
-      acc.push({ name: group, value: 1 });
-    }
-    return acc;
-  }, []).sort((a, b) => b.value - a.value);
+  const bloodGroupStats = donors
+    .reduce((acc, donor) => {
+      const group = donor.bloodGroup;
+      if (!group) return acc;
+      const existing = acc.find((item) => item.name === group);
+      if (existing) {
+        existing.value += 1;
+      } else {
+        acc.push({ name: group, value: 1 });
+      }
+      return acc;
+    }, [])
+    .sort((a, b) => b.value - a.value);
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -230,8 +260,10 @@ const Dashboard = () => {
                   whileTap="tap"
                   className="bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 inline-flex items-center space-x-2"
                 >
-                  <FaPlus />
-                  <span>Create Your First Request</span>
+                  <Link to="/dashboard/create-donation-request" className="flex items-center">
+                    <FaPlus />
+                    <span>Create Your First Request</span>
+                  </Link>
                 </motion.button>
               </motion.div>
             ) : (
@@ -258,14 +290,15 @@ const Dashboard = () => {
                             </span>
                           </div>
                           <div
-                            className={`px-2 py-1 rounded-full text-xs font-medium ${request.donationStatus === "pending"
-                              ? "bg-yellow-400 text-yellow-900"
-                              : request.donationStatus === "inprogress"
-                                ? "bg-blue-400 text-blue-900"
-                                : request.donationStatus === "done"
-                                  ? "bg-green-400 text-green-900"
-                                  : "bg-gray-400 text-gray-900"
-                              }`}
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              request.donationStatus === "pending"
+                                ? "bg-yellow-400 text-yellow-900"
+                                : request.donationStatus === "inprogress"
+                                  ? "bg-blue-400 text-blue-900"
+                                  : request.donationStatus === "done"
+                                    ? "bg-green-400 text-green-900"
+                                    : "bg-gray-400 text-gray-900"
+                            }`}
                           >
                             {request.donationStatus}
                           </div>
@@ -303,7 +336,9 @@ const Dashboard = () => {
                           <div className="flex items-center space-x-2">
                             <FaCalendarAlt className="text-red-500" />
                             <div>
-                              <p className="text-xs text-base-content/50">Date</p>
+                              <p className="text-xs text-base-content/50">
+                                Date
+                              </p>
                               <p className="text-sm font-semibold">
                                 {request.donationDate}
                               </p>
@@ -312,7 +347,9 @@ const Dashboard = () => {
                           <div className="flex items-center space-x-2">
                             <FaClock className="text-red-500" />
                             <div>
-                              <p className="text-xs text-base-content/50">Time</p>
+                              <p className="text-xs text-base-content/50">
+                                Time
+                              </p>
                               <p className="text-sm font-semibold">
                                 {request.donationTime}
                               </p>
@@ -535,7 +572,9 @@ const Dashboard = () => {
                 variants={cardVariants}
                 className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 flex flex-col items-center"
               >
-                <h3 className="text-xl font-bold text-base-content mb-6">Donation Status Distribution</h3>
+                <h3 className="text-xl font-bold text-base-content mb-6">
+                  Donation Status Distribution
+                </h3>
                 <div className="w-full h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -544,7 +583,9 @@ const Dashboard = () => {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ name, percent }) =>
+                          `${name} ${(percent * 100).toFixed(0)}%`
+                        }
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
@@ -565,7 +606,9 @@ const Dashboard = () => {
                 variants={cardVariants}
                 className="bg-base-100 rounded-2xl shadow-xl p-8 border border-base-300 flex flex-col items-center"
               >
-                <h3 className="text-xl font-bold text-base-content mb-6">Donor Blood Group Distribution</h3>
+                <h3 className="text-xl font-bold text-base-content mb-6">
+                  Donor Blood Group Distribution
+                </h3>
                 <div className="w-full h-80">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
@@ -577,11 +620,20 @@ const Dashboard = () => {
                         bottom: 5,
                       }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        vertical={false}
+                        stroke="#E5E7EB"
+                      />
                       <XAxis dataKey="name" axisLine={false} tickLine={false} />
                       <YAxis axisLine={false} tickLine={false} />
-                      <RechartsTooltip cursor={{ fill: '#FEF2F2' }} />
-                      <Bar dataKey="value" fill="#EF4444" radius={[4, 4, 0, 0]} barSize={40} />
+                      <RechartsTooltip cursor={{ fill: "#FEF2F2" }} />
+                      <Bar
+                        dataKey="value"
+                        fill="#EF4444"
+                        radius={[4, 4, 0, 0]}
+                        barSize={40}
+                      />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
