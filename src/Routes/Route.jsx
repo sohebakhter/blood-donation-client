@@ -22,6 +22,7 @@ import PaymentSuccess from "../Pages/Payment/PaymentSuccess";
 import PaymentCancelled from "../Pages/Payment/PaymentCancelled";
 import PaymentLayout from "../Layouts/PaymentLayout";
 import RootLayout from "../Layouts/RootLayout";
+import Contact from "../Components/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "about",
         Component: About,
+      },
+      {
+        path: "contact",
+        element: <Contact></Contact>,
       },
       {
         path: "search",

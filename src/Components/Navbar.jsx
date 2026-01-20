@@ -24,6 +24,9 @@ const Navbar = () => {
           <li>
             <NavLink to="/funding">Funding</NavLink>
           </li>
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
         </>
       ) : (
         <li>
@@ -72,7 +75,10 @@ const Navbar = () => {
           </div>
           <div className="flex items-center">
             <img src={logo} alt="logo" className="w-16 rounded-full" />
-            <Link to="/" className="font-semibold text-red-600 text-2xl md:text-5xl ml-2">
+            <Link
+              to="/"
+              className="font-semibold text-red-600 text-2xl md:text-5xl ml-2"
+            >
               Red Love
             </Link>
           </div>
@@ -92,10 +98,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="User Avatar"
-                    src={user?.photoURL}
-                  />
+                  <img alt="User Avatar" src={user?.photoURL} />
                 </div>
               </div>
               <ul
