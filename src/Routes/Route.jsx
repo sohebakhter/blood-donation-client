@@ -46,6 +46,10 @@ export const router = createBrowserRouter([
         path: "donation-requests",
         Component: DonationRequests,
       },
+      {
+        path: "donation-request-details/:id",
+        element: <DonationRequestDetails></DonationRequestDetails>,
+      },
     ],
   },
   {
@@ -64,6 +68,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "dashboard",
     Component: DashboardLayout,
@@ -87,14 +92,7 @@ export const router = createBrowserRouter([
         path: "manage-donation-request/:id",
         Component: ManageDonationRequest,
       },
-      {
-        path: "donation-request-details/:id",
-        element: (
-          <PrivateRoute>
-            <DonationRequestDetails></DonationRequestDetails>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "all-users",
         Component: AllUsers,

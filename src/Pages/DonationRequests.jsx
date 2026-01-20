@@ -191,7 +191,7 @@ const DonationRequests = () => {
                 {/* Card Footer */}
                 <div className="px-6 pb-6">
                   <Link
-                    to={`/dashboard/donation-request-details/${pending._id}`}
+                    to={`/donation-request-details/${pending._id}`}
                     className="w-full bg-linear-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 group"
                   >
                     <FaEye className="group-hover:scale-110 transition-transform duration-200" />
