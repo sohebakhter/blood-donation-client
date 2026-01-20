@@ -2,7 +2,6 @@ import React from "react";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import Loading from "../Components/Loading";
 import { motion } from "framer-motion";
 import {
   FaMapMarkerAlt,
@@ -11,6 +10,7 @@ import {
   FaEye,
   FaTint,
 } from "react-icons/fa";
+import DonationRequestSkeleton from "../Components/DonationRequestSkeleton";
 
 const DonationRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -24,7 +24,27 @@ const DonationRequests = () => {
   });
 
   if (isLoading) {
-    return <Loading></Loading>;
+    return (
+      <div className="min-h-screen bg-base-200 py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent mb-4">
+              Pending Donation Requests
+            </h1>
+            <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
+              Help save lives by responding to these urgent blood donation
+              requests in your area
+            </p>
+            <div className="w-24 h-1 bg-linear-to-r from-red-500 to-red-600 mx-auto mt-4 rounded-full"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+            {[...Array(8)].map((_, index) => (
+              <DonationRequestSkeleton key={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const containerVariants = {
@@ -89,7 +109,7 @@ const DonationRequests = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2"
           >
             {pendingData.map((pending, i) => (
               <motion.div

@@ -174,7 +174,7 @@ const Funding = () => {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-8"
             >
               {payments.map((payment, i) => (
                 <motion.div
