@@ -48,7 +48,7 @@ const ImpactStats = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-6xl font-bold mt-5 mb-4 bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
+                    <h2 className="text-7xl font-bold mb-4 bg-linear-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
                         Our Impact
                     </h2>
                     <p className="text-lg text-base-content/70">
@@ -66,7 +66,7 @@ const ImpactStats = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             whileHover={{ scale: 1.05 }}
-                            className="bg-base-100 rounded-2xl shadow-xl p-14 border border-base-300 text-center relative overflow-hidden group"
+                            className="bg-base-100 rounded-2xl shadow-xl p-6 border border-base-300 text-center relative overflow-hidden group"
                         >
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                                 <stat.icon className={`text-6xl ${stat.color}`} />
