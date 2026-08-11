@@ -95,4 +95,4 @@ Soheb Akhter
 Front-End Web Developer
 📧 Email: sohebakhterbadhan@gmail.com
 
-🌐 Portfolio: [portfolio](https://portfolio-soheb.netlify.app/)
+🌐 Portfolio: [portfolio](https://soheb-dev.vercel.app/)
